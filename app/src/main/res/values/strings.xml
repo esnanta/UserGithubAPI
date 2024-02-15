@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">UserGithubAPI</string>
+    <string name="app_name">Github User Search</string>
+    <string name="menu_1">Menu 1</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_search">Search</string>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.UserGithubAPI">
+        <!-- Customize your theme here. -->
+
+        <!-- provided green color to the ActionBar -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+
 </resources>
