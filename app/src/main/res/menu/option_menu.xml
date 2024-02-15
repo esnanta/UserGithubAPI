@@ -17,11 +17,5 @@
             android:title="@string/menu_refresh"
             android:icon="@drawable/baseline_refresh_24"/>
 
-        <item
-            android:id="@+id/menu1"
-            android:orderInCategory="100"
-            android:icon="@drawable/baseline_settings_applications_24"
-            android:title="@string/menu_1"
-            app:showAsAction="ifRoom" />
     </group>
 </menu>

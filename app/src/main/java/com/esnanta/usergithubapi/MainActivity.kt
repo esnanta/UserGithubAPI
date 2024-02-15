@@ -2,6 +2,9 @@ package com.esnanta.usergithubapi
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import com.esnanta.usergithubapi.databinding.ActivityMainBinding
 
@@ -12,24 +15,25 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        binding.topAppBar.setOnMenuItemClickListener {menuItem ->
-//            when (menuItem.itemId){
-//                R.id.menu1 -> {
-//                    supportFragmentManager.beginTransaction()
-//                        .replace(R.id.fragment_container, MenuFragment())
-//                        .addToBackStack(null)
-//                        .commit()
-//                    true
-//                }
-//                R.id.menu2 -> {
-//                    val intent = Intent(this, MenuActivity::class.java)
-//                    startActivity(intent)
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
-    }
+        binding.topAppBar.setOnMenuItemClickListener {menuItem ->
+            when (menuItem.itemId){
+                R.id.search -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, SearchFragment())
+                        .addToBackStack(null)
+                        .commit()
+                    true
+                }
+                else -> false
+            }
+        }
 
+        //Menghubungkan komponen SearchBar dan SearchView
+        //pada MainActivity
+        with(binding) {
+            searchView.setupWithSearchBar(searchBar)
+        }
+
+    }
 
 }
