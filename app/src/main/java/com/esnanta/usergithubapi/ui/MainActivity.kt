@@ -1,9 +1,11 @@
 package com.esnanta.usergithubapi.ui
 
+import android.R
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import com.esnanta.usergithubapi.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -11,6 +13,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        // Set up search function
 
 //        binding.topAppBar.setOnMenuItemClickListener {menuItem ->
 //            when (menuItem.itemId){
@@ -24,21 +29,5 @@ class MainActivity : AppCompatActivity() {
 //                else -> false
 //            }
 //        }
-
-        setSupportActionBar(binding.topAppBar)
-
-        // Set up search function
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                // Handle search query submission
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                // Handle search query changes
-                return true
-            }
-        })
     }
-
 }

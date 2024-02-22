@@ -4,16 +4,6 @@
     <string name="menu_search">Search</string>
     <string name="searchbar_hint">Masukkan kata</string>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="@style/Theme.UserGithubAPI">
-        <!-- Customize your theme here. -->
-
-        <!-- provided green color to the ActionBar -->
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryDark">@color/black</item>
-        <item name="colorAccent">@color/white</item>
-    </style>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
