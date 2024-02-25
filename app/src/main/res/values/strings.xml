@@ -4,6 +4,16 @@
     <string name="menu_search">Search</string>
     <string name="searchbar_hint">Masukkan kata</string>
 
+    <string name="avatar">Avatar</string>
+    <string name="username">Username</string>
+    <string name="profile_name">Profile</string>
+    <string name="followers">Follower</string>
+    <string name="following">Following</string>
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="random_text_1">
         Hadoop is a data processing tool used to process large size data over distributed
         commodity hardware. The trend of Big Data Hadoop market is on the boom and it’s
@@ -38,16 +48,4 @@
         Hadoop will be considered as the must-learn skill for the data-scientist and Big Data
         Technology. Companies are investing big in it and it will become an in-demand skill in the future.
     </string>
-
-    <string name="avatar">Avatar</string>
-    <string name="username">Username</string>
-    <string name="profile_name">Profile</string>
-    <string name="followers">Follower</string>
-    <string name="following">Following</string>
-
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>
