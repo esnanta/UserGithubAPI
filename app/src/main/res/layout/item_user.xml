@@ -10,7 +10,8 @@
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="105dp">
+        android:layout_height="105dp"
+        tools:context=".ListUsersActivity">
 
         <TextView
             android:id="@+id/tvIdUser"
