@@ -3,36 +3,33 @@ package com.esnanta.usergithubapi.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.esnanta.usergithubapi.data.response.UsersItem
-import com.esnanta.usergithubapi.databinding.ListUserBinding
+import com.esnanta.usergithubapi.data.response.UserItem
+import com.esnanta.usergithubapi.databinding.ItemUserBinding
 
-class UserAdapter: ListAdapter<UsersItem, UserAdapter.UserViewHolder> (DIFF_CALLBACK){
+class UserAdapter(private val userItemList: List<UserItem>)
+    : RecyclerView.Adapter<UserViewHolder>(){
+
+    private lateinit var binding: ItemUserBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        val binding = ListUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserViewHolder(binding);
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val review = getItem(position)
-        holder.bind(review)
+        val userItem = userItemList[position]
+        return holder.bind(userItem)
     }
 
-    class UserViewHolder (val binding: ListUserBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(review: UsersItem){
-            binding.tvIdUser.text = "${review.id}"
-            binding.tvUsername.text = "${review.login}"
-        }
-    }
+    override fun getItemCount(): Int = userItemList.size
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UsersItem>() {
-            override fun areItemsTheSame(oldItem: UsersItem, newItem: UsersItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UserItem>() {
+            override fun areItemsTheSame(oldItem: UserItem, newItem: UserItem): Boolean {
                 return oldItem == newItem
             }
-            override fun areContentsTheSame(oldItem: UsersItem, newItem: UsersItem): Boolean {
+            override fun areContentsTheSame(oldItem: UserItem, newItem: UserItem): Boolean {
                 return oldItem == newItem
             }
         }

@@ -11,19 +11,10 @@ data class UserResponse(
 	val incompleteResults: Boolean,
 
 	@field:SerializedName("items")
-	val items: List<UsersItem>
+	val items: List<UserItem>
 )
 
-data class UsersItem(
-
-	@field:SerializedName("avatar_url")
-	val avatarUrl: String,
-
-	@field:SerializedName("html_url")
-	val htmlUrl: String,
-
-	@field:SerializedName("following_url")
-	val followingUrl: String,
+data class UserItem(
 
 	@field:SerializedName("id")
 	val id: Int,
@@ -31,15 +22,29 @@ data class UsersItem(
 	@field:SerializedName("login")
 	val login: String,
 
-	@field:SerializedName("followers_url")
-	val followersUrl: String,
+//	@field:SerializedName("followers_url")
+//	val followersUrl: String,
 
-	@field:SerializedName("gravatar_id")
-	val gravatarId: String,
-
-	@field:SerializedName("url")
-	val url: String,
-
-	@field:SerializedName("node_id")
-	val nodeId: String
+//	@field:SerializedName("avatar_url")
+//	val avatarUrl: String,
+//
+//	@field:SerializedName("html_url")
+//	val htmlUrl: String,
+//
+//	@field:SerializedName("following_url")
+//	val followingUrl: String,
+//
+//
+//
+//	@field:SerializedName("followers_url")
+//	val followersUrl: String,
+//
+//	@field:SerializedName("gravatar_id")
+//	val gravatarId: String,
+//
+//	@field:SerializedName("url")
+//	val url: String,
+//
+//	@field:SerializedName("node_id")
+//	val nodeId: String
 )
