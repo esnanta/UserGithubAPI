@@ -5,46 +5,41 @@ import com.google.gson.annotations.SerializedName
 data class UserResponse(
 
 	@field:SerializedName("total_count")
-	val totalCount: Int,
+	val totalCount: Int? = null,
 
 	@field:SerializedName("incomplete_results")
-	val incompleteResults: Boolean,
+	val incompleteResults: Boolean? = null,
 
 	@field:SerializedName("items")
-	val items: List<UserItem>
+	val items: List<UserItem>? = null
 )
 
 data class UserItem(
 
 	@field:SerializedName("id")
-	val id: Int,
+	val id: Int? = null,
 
 	@field:SerializedName("login")
-	val login: String,
+	val login: String? = null,
 
-//	@field:SerializedName("followers_url")
-//	val followersUrl: String,
+	@field:SerializedName("followers_url")
+	val followersUrl: String? = null,
 
-//	@field:SerializedName("avatar_url")
-//	val avatarUrl: String,
-//
-//	@field:SerializedName("html_url")
-//	val htmlUrl: String,
-//
-//	@field:SerializedName("following_url")
-//	val followingUrl: String,
-//
-//
-//
-//	@field:SerializedName("followers_url")
-//	val followersUrl: String,
-//
-//	@field:SerializedName("gravatar_id")
-//	val gravatarId: String,
-//
-//	@field:SerializedName("url")
-//	val url: String,
-//
-//	@field:SerializedName("node_id")
-//	val nodeId: String
+	@field:SerializedName("avatar_url")
+	val avatarUrl: String? = null,
+
+	@field:SerializedName("html_url")
+	val htmlUrl: String? = null,
+
+	@field:SerializedName("following_url")
+	val followingUrl: String? = null,
+
+	@field:SerializedName("gravatar_id")
+	val gravatarId: String? = null,
+
+	@field:SerializedName("url")
+	val url: String? = null,
+
+	@field:SerializedName("node_id")
+	val nodeId: String? = null
 )
