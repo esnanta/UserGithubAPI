@@ -70,74 +70,8 @@ class MainActivity : AppCompatActivity() {
         recyclerViewNews.adapter = UserAdapter(listUser)
         recyclerViewNews.layoutManager = LinearLayoutManager(this)
         recyclerViewNews.setHasFixedSize(true)
-
-
-//        Glide.with(this@MainActivity)
-//            .load("https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}")
-//            .into(binding.ivPicture)
     }
 
-
-
-    private fun getUsers(){
-        binding.progressBar.visibility = View.VISIBLE
-
-        val client = AsyncHttpClient()
-        val url = "https://api.github.com/search/users?q=$USERNAME_GITHUB"
-
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<out Header>?,
-                responseBody: ByteArray?
-            ) {
-                val userItem = arrayListOf<UserItem>()
-                val result = responseBody?.let { String(it) }
-                Log.d(TAG, result.toString())
-
-                try {
-
-                    val jsonArray = JSONArray(result)
-
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObject = jsonArray.getJSONObject(i)
-                        val username = jsonObject.getString("login")
-                        val id = jsonObject.getString("id")
-                        val userItemDetail = UserItem(
-                            Integer.parseInt(id.toString()),
-                            username
-                        )
-                        userItem.add(userItemDetail)
-                    }
-
-                    val userAdapter = UserAdapter(userItem)
-                    binding.userRecyclerView.adapter = userAdapter
-
-                } catch (e: Exception) {
-                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<out Header>?,
-                responseBody: ByteArray?,
-                error: Throwable?
-            ) {
-                binding.progressBar.visibility = View.INVISIBLE
-                val errorMessage = when (statusCode) {
-                    401 -> "$statusCode : Bad Request"
-                    403 -> "$statusCode : Forbidden"
-                    404 -> "$statusCode : Not Found"
-                    else -> "$statusCode : ${error?.message}"
-                }
-
-                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
-            }
-
-        })
-    }
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
