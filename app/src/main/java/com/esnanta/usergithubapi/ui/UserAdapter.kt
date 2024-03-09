@@ -2,8 +2,11 @@ package com.esnanta.usergithubapi.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.esnanta.usergithubapi.data.response.UserItem
 import com.esnanta.usergithubapi.databinding.ItemUserBinding
 
@@ -24,13 +27,14 @@ class UserAdapter(private val userItemList: List<UserItem>)
 
     override fun getItemCount(): Int = userItemList.size
 
-    companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UserItem>() {
-            override fun areItemsTheSame(oldItem: UserItem, newItem: UserItem): Boolean {
-                return oldItem == newItem
-            }
-            override fun areContentsTheSame(oldItem: UserItem, newItem: UserItem): Boolean {
-                return oldItem == newItem
+    companion object BindingAdapters {
+        @JvmStatic
+        @BindingAdapter("imageUrl")
+        fun loadImage(imageView: ImageView, url: String?) {
+            if (!url.isNullOrBlank()) {
+                Glide.with(imageView.context)
+                    .load(url)
+                    .into(imageView)
             }
         }
     }

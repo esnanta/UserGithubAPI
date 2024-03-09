@@ -1,10 +1,13 @@
 package com.esnanta.usergithubapi.ui
 
 import android.util.Log
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.esnanta.usergithubapi.data.response.UserItem
 import com.esnanta.usergithubapi.data.response.UserResponse
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig

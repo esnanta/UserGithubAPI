@@ -61,8 +61,6 @@ class MainActivity : AppCompatActivity() {
         binding.userRecyclerView.setLayoutManager(layoutManager)
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.userRecyclerView.addItemDecoration(itemDecoration)
-
-
     }
 
     private fun setListUser(listUser: List<UserItem>) {
@@ -81,13 +79,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDummy(){
-        val userItem = DummyData.getDummyData(this)
-        val userAdapter = UserAdapter(userItem)
-
-        val recyclerViewNews = binding.userRecyclerView
-        recyclerViewNews.adapter = userAdapter
-        recyclerViewNews.layoutManager = LinearLayoutManager(this)
-        recyclerViewNews.setHasFixedSize(true)
-    }
 }
