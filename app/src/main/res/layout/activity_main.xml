@@ -8,6 +8,7 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity">
@@ -40,7 +41,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <ProgressBar
             android:id="@+id/progressBar"

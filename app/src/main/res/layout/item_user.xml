@@ -7,10 +7,11 @@
         <variable name="userItem" type="com.esnanta.usergithubapi.data.response.UserItem" />
     </data>
 
-    <RelativeLayout
-        android:orientation="vertical"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="20dp"
         android:padding="10dp"
         tools:context=".ListUsers">
 
@@ -18,31 +19,30 @@
             android:id="@+id/imageViewAvatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="10dp"
             tools:src="@tools:sample/avatars" />
 
-
-        <TextView
-            android:id="@+id/tvIdUser"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@+id/imageViewAvatar"
-            app:layout_constraintTop_toTopOf="@+id/imageViewAvatar"
-            tools:text="@{Integer.toString(userItem.id)}" />
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tvIdUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="@{Integer.toString(userItem.id)}" />
 
-        <TextView
-            android:id="@+id/tvUsername"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageViewAvatar"
-            app:layout_constraintTop_toBottomOf="@+id/tvIdUser"
-            tools:text="@{userItem.login}" />
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="@{userItem.login}" />
+        </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 </layout>
