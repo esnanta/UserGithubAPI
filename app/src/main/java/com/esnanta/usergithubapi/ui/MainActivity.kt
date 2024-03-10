@@ -1,37 +1,29 @@
 package com.esnanta.usergithubapi.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.esnanta.usergithubapi.R
 import com.esnanta.usergithubapi.data.response.UserItem
-import com.esnanta.usergithubapi.data.response.UserResponse
-import com.esnanta.usergithubapi.data.retrofit.ApiService
 import com.esnanta.usergithubapi.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
-import org.json.JSONArray
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewUserModel : ViewModel by viewModels()
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName
-        private const val USERNAME_GITHUB = "sidiqpermana"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +53,26 @@ class MainActivity : AppCompatActivity() {
         binding.userRecyclerView.setLayoutManager(layoutManager)
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.userRecyclerView.addItemDecoration(itemDecoration)
+
+
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+//                R.id.search_menu -> {
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.fragment_container, MenuFragment())
+//                        .addToBackStack(null)
+//                        .commit()
+//                    true
+//                }
+                R.id.refresh_menu -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
+
     }
 
     private fun setListUser(listUser: List<UserItem>) {

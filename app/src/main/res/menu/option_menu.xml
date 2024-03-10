@@ -4,14 +4,14 @@
     <group android:menuCategory="container">
 
         <!-- action button for search -->
-        <item android:id="@+id/search"
+        <item android:id="@+id/search_menu"
             android:orderInCategory="100"
             app:showAsAction="ifRoom"
             android:title="@string/menu_search"
             android:icon="@drawable/baseline_search_24"/>
 
         <!-- action button for refresh -->
-        <item android:id="@+id/refresh"
+        <item android:id="@+id/refresh_menu"
             android:orderInCategory="100"
             app:showAsAction="ifRoom"
             android:title="@string/menu_refresh"
