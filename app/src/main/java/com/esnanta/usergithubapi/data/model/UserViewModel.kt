@@ -1,4 +1,4 @@
-package com.esnanta.usergithubapi.ui
+package com.esnanta.usergithubapi.data.model
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.esnanta.usergithubapi.data.response.UserItem
 import com.esnanta.usergithubapi.data.response.UserResponse
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig
+import com.esnanta.usergithubapi.ui.MainActivity
 import com.esnanta.usergithubapi.utils.Event
 import retrofit2.Call
 import retrofit2.Callback

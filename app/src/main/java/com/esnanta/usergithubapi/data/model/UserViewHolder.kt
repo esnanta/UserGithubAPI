@@ -1,4 +1,4 @@
-package com.esnanta.usergithubapi.ui
+package com.esnanta.usergithubapi.data.model
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

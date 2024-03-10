@@ -1,10 +1,9 @@
-package com.esnanta.usergithubapi.ui
+package com.esnanta.usergithubapi.data.model
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.esnanta.usergithubapi.data.response.UserItem
