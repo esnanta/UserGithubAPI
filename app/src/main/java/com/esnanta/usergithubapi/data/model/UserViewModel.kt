@@ -3,6 +3,7 @@ package com.esnanta.usergithubapi.data.model
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.esnanta.usergithubapi.data.response.UserItem
 import com.esnanta.usergithubapi.data.response.UserResponse
@@ -18,8 +19,8 @@ class UserViewModel: ViewModel() {
     private val _userItem = MutableLiveData<UserItem>()
     val userItem: LiveData<UserItem> = _userItem
 
-    private val _listUser = MutableLiveData<List<UserItem>>()
-    val listUser: LiveData<List<UserItem>> = _listUser
+    private val _listUser = MutableLiveData<List<UserItem>?>()
+    val listUser: MutableLiveData<List<UserItem>?> = _listUser
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -27,18 +28,20 @@ class UserViewModel: ViewModel() {
     private val _snackbarText = MutableLiveData<Event<String>>()
     val snackbarText: LiveData<Event<String>> = _snackbarText
 
+    var loginUsername : String = "sidiqpermana"
+
     companion object {
         private val TAG = MainActivity::class.java.simpleName
         private const val USERNAME_GITHUB = "sidiqpermana"
     }
 
     init{
-        findUser()
+        findUser(loginUsername)
     }
 
-    private fun findUser() {
+    private fun findUser(searchUserName:String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getSearch(USERNAME_GITHUB)
+        val client = ApiConfig.getApiService().getSearch(searchUserName)
         client.enqueue(object : Callback<UserResponse> {
             override fun onResponse(
                 call: Call<UserResponse>,

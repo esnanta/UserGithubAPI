@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.esnanta.usergithubapi.data.response.UserItem
 import com.esnanta.usergithubapi.databinding.ItemUserBinding
 
-class UserAdapter(private val userItemList: List<UserItem>)
+class UserAdapter(private var userItemList: List<UserItem>)
     : RecyclerView.Adapter<UserViewHolder>(){
 
     private lateinit var binding: ItemUserBinding
@@ -25,6 +25,11 @@ class UserAdapter(private val userItemList: List<UserItem>)
     }
 
     override fun getItemCount(): Int = userItemList.size
+
+    fun updateList(filterlist: List<UserItem>) {
+        userItemList = filterlist
+        notifyDataSetChanged()
+    }
 
     companion object BindingAdapters {
         @JvmStatic
