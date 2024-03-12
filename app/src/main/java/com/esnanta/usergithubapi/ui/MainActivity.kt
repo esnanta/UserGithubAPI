@@ -18,11 +18,12 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val mainViewModel: UserViewModel by viewModels()  // Using 'by viewModels()' delegate
+    private lateinit var adapter: UserAdapter
+
+    private val mainViewModel: UserViewModel by viewModels()
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName
-        //private const val USERNAME_GITHUB = "sidiqpermana"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +44,13 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.search_menu -> {
                     binding.searchView.visibility = View.VISIBLE
+                    binding.searchView.setQuery("sidiqpermana22",false)
+
                     with(binding) {
                         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                             override fun onQueryTextSubmit(query: String?): Boolean {
                                 if (query != null) {
-                                    mainViewModel.loginUsername = query
+                                    mainViewModel.findUser(query)
                                 }
                                 binding.searchView.visibility = View.GONE
                                 return false
@@ -69,57 +72,18 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
-
-    }
-
-    private fun filterList(query: String?) {
-        val filteredList = if (query.isNullOrBlank()) {
-            allUsers  // If the search is empty, show all users
-        } else {
-            allUsers.filter {
-                it.name.contains(query, ignoreCase = true) ||
-                        it.email.contains(query, ignoreCase = true)
-            }
-        }
-        userAdapter.updateList(filteredList)
-    }
-
-    private fun filter(text: String) {
-        // creating a new array list to filter our data.
-        val filteredlist: ArrayList<CourseRVModal> = ArrayList()
-
-        // running a for loop to compare elements.
-        for (item in courseList) {
-            // checking if the entered string matched with any item of our recycler view.
-            if (item.courseName.toLowerCase().contains(text.toLowerCase())) {
-                // if the item is matched we are
-                // adding it to our filtered list.
-                filteredlist.add(item)
-            }
-        }
-        if (filteredlist.isEmpty()) {
-            // if no item is added in filtered list we are
-            // displaying a toast message as no data found.
-            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show()
-        } else {
-            // at last we are passing that filtered
-            // list to our adapter class.
-            courseRVAdapter.filterList(filteredlist)
-        }
-    }
-
-
-    private fun setListUser(listUser: List<UserItem>) {
-        binding.userRecyclerView.adapter = UserAdapter(listUser)
-        binding.userRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.userRecyclerView.setHasFixedSize(true)
     }
 
     private fun loadViewModel(){
+
         mainViewModel.listUser.observe(this) { listUserItem ->
-            if (listUserItem != null) {
-                setListUser(listUserItem)
+            listUserItem?.let {
+                adapter = UserAdapter(listUserItem)
+                adapter.updateList(it)
+
+                binding.userRecyclerView.adapter = adapter
+                binding.userRecyclerView.layoutManager = LinearLayoutManager(this)
+                binding.userRecyclerView.setHasFixedSize(true)
             }
         }
 
@@ -145,3 +109,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+

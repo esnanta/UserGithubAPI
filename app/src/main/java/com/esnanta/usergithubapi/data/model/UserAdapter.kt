@@ -26,8 +26,8 @@ class UserAdapter(private var userItemList: List<UserItem>)
 
     override fun getItemCount(): Int = userItemList.size
 
-    fun updateList(filterlist: List<UserItem>) {
-        userItemList = filterlist
+    fun updateList(filterList: List<UserItem>) {
+        userItemList = filterList
         notifyDataSetChanged()
     }
 

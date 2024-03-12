@@ -28,20 +28,19 @@ class UserViewModel: ViewModel() {
     private val _snackbarText = MutableLiveData<Event<String>>()
     val snackbarText: LiveData<Event<String>> = _snackbarText
 
-    var loginUsername : String = "sidiqpermana"
+    private var loginUsername : String = "sidiqpermana"
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName
-        private const val USERNAME_GITHUB = "sidiqpermana"
     }
 
     init{
         findUser(loginUsername)
     }
 
-    private fun findUser(searchUserName:String) {
+    fun findUser(searchUser:String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getSearch(searchUserName)
+        val client = ApiConfig.getApiService().getSearch(searchUser)
         client.enqueue(object : Callback<UserResponse> {
             override fun onResponse(
                 call: Call<UserResponse>,
