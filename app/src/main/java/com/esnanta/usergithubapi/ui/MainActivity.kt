@@ -38,40 +38,8 @@ class MainActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.userRecyclerView.addItemDecoration(itemDecoration)
 
-        binding.searchView.visibility = View.GONE
-
-        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.search_menu -> {
-                    binding.searchView.visibility = View.VISIBLE
-                    binding.searchView.setQuery("sidiqpermana22",false)
-
-                    with(binding) {
-                        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                            override fun onQueryTextSubmit(query: String?): Boolean {
-                                if (query != null) {
-                                    mainViewModel.findUser(query)
-                                }
-                                binding.searchView.visibility = View.GONE
-                                return false
-                            }
-
-                            override fun onQueryTextChange(newText: String?): Boolean {
-                                //filterList(newText)
-                                return false
-                            }
-                        })
-                    }
-                    true
-                }
-                R.id.refresh_menu -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                else -> false
-            }
-        }
+        showSearchView(false)
+        setUpTopAppBar()
     }
 
     private fun loadViewModel(){
@@ -100,6 +68,41 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setUpTopAppBar(){
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.search_menu -> {
+                    showSearchView(true)
+                    binding.searchView.setQuery("sidiqpermana22",false)
+
+                    with(binding) {
+                        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                            override fun onQueryTextSubmit(query: String?): Boolean {
+                                if (query != null) {
+                                    mainViewModel.findUser(query)
+                                }
+                                showSearchView(false)
+                                return false
+                            }
+
+                            override fun onQueryTextChange(newText: String?): Boolean {
+                                //do nothing
+                                return false
+                            }
+                        })
+                    }
+                    true
+                }
+                R.id.refresh_menu -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
@@ -107,7 +110,13 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.GONE
         }
     }
-
+    private fun showSearchView(isShowing: Boolean) {
+        if (isShowing) {
+            binding.searchView.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
 }
 
 
