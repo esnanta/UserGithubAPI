@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
         if (isShowing) {
             binding.searchView.visibility = View.VISIBLE
         } else {
-            binding.progressBar.visibility = View.GONE
+            binding.searchView.visibility = View.GONE
         }
     }
 
