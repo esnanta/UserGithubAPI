@@ -24,10 +24,6 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
 
     private val mainViewModel: UserViewModel by viewModels()
 
-    companion object {
-        private val TAG = MainActivity::class.java.simpleName
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

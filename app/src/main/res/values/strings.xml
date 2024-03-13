@@ -4,17 +4,12 @@
     <string name="menu_search">Search</string>
     <string name="searchbar_hint">Masukkan kata</string>
 
+    <string name="id">id test</string>
+    <string name="login">login test</string>
     <string name="avatar">Avatar</string>
     <string name="username">Username</string>
     <string name="profile_name">Profile</string>
     <string name="followers">Follower</string>
     <string name="following">Following</string>
-
-    <string name="id">id test</string>
-    <string name="login">login test</string>
-    <item name="item_click_support" type="id" />
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
