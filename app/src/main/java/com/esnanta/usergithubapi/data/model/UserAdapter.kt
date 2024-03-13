@@ -13,6 +13,11 @@ class UserAdapter(private var userItemList: List<UserItem>)
     : RecyclerView.Adapter<UserViewHolder>(){
 
     private lateinit var binding: ItemUserBinding
+    private lateinit var clickListener: IUserItemClickListener
+
+    fun setOnItemClickListener(listener: IUserItemClickListener) {
+        clickListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -21,6 +26,9 @@ class UserAdapter(private var userItemList: List<UserItem>)
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val userItem = userItemList[position]
+        holder.binding.root.setOnClickListener {
+            clickListener.onUserItemClick(userItem)
+        }
         return holder.bind(userItem)
     }
 

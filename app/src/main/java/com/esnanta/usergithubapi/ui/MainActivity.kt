@@ -3,6 +3,7 @@ package com.esnanta.usergithubapi.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -10,13 +11,14 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esnanta.usergithubapi.R
 import com.esnanta.usergithubapi.data.model.UserAdapter
+import com.esnanta.usergithubapi.data.model.IUserItemClickListener
 import com.esnanta.usergithubapi.data.model.UserViewModel
 import com.esnanta.usergithubapi.data.response.UserItem
 import com.esnanta.usergithubapi.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IUserItemClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: UserAdapter
 
@@ -48,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             listUserItem?.let {
                 adapter = UserAdapter(listUserItem)
                 adapter.updateList(it)
+                adapter.setOnItemClickListener(this)
 
                 binding.userRecyclerView.adapter = adapter
                 binding.userRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -116,6 +119,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    override fun onUserItemClick(userItem: UserItem) {
+        Toast.makeText(this, "You clicked: ${userItem.login}", Toast.LENGTH_SHORT).show()
     }
 }
 
