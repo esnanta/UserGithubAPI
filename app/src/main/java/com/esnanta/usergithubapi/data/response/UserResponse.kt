@@ -11,10 +11,10 @@ data class UserResponse(
 	val incompleteResults: Boolean? = null,
 
 	@field:SerializedName("items")
-	val items: List<UserItem>? = null
+	val items: List<UserItemResponse>? = null
 )
 
-data class UserItem(
+data class UserItemResponse(
 
 	@field:SerializedName("id")
 	val id: Int? = null,

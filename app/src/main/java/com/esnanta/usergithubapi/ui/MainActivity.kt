@@ -12,7 +12,7 @@ import com.esnanta.usergithubapi.R
 import com.esnanta.usergithubapi.data.model.UserAdapter
 import com.esnanta.usergithubapi.data.model.IUserItemClickListener
 import com.esnanta.usergithubapi.data.model.UserViewModel
-import com.esnanta.usergithubapi.data.response.UserItem
+import com.esnanta.usergithubapi.data.response.UserItemResponse
 import com.esnanta.usergithubapi.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
         }
     }
 
-    override fun onUserItemClick(userItem: UserItem) {
+    override fun onUserItemClick(userItem: UserItemResponse) {
         val intent = Intent(this, ItemDetailActivity::class.java)
         intent.putExtra("loginUser", userItem.login)
         startActivity(intent)

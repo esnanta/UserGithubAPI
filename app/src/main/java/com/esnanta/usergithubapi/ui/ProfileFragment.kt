@@ -25,11 +25,11 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tvLabel: TextView = binding.sectionLabel
-        val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
-        val loginUser = arguments?.getString(ARG_LOGIN_USER)
+        //val tvLabel: TextView = binding.sectionLabel
+        //val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
+        //val loginUser = arguments?.getString(ARG_LOGIN_USER)
 
-        tvLabel.text = getString(R.string.content_tab_text, index) + loginUser
+        //tvLabel.text = getString(R.string.content_tab_text, index) + loginUser
     }
 
     override fun onDestroyView() {

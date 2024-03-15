@@ -4,7 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="userItem" type="com.esnanta.usergithubapi.data.response.UserItem" />
+        <variable
+            name="dataItem"
+            type="com.esnanta.usergithubapi.data.response.FollowerItemResponse"
+        />
     </data>
 
     <LinearLayout
@@ -15,20 +18,12 @@
         android:padding="10dp"
         tools:context=".ui.ItemDetailActivity">
 
-        <TextView
-            android:id="@+id/section_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Testing" />
-
         <ImageView
             android:id="@+id/imageViewAvatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
-            app:imageUrl="@{userItem.avatarUrl}"/>
+            app:imageUrl="@{dataItem.avatarUrl}"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                tools:text="@{Integer.toString(userItem.id)}" />
+                tools:text="@{Integer.toString(dataItem.id)}" />
 
             <TextView
                 android:id="@+id/tvUsername"
@@ -49,7 +44,7 @@
                 android:layout_marginStart="16dp"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="@{userItem.login}" />
+                tools:text="@{dataItem.login}" />
         </LinearLayout>
 
     </LinearLayout>

@@ -6,10 +6,10 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.esnanta.usergithubapi.data.response.UserItem
+import com.esnanta.usergithubapi.data.response.UserItemResponse
 import com.esnanta.usergithubapi.databinding.ItemUserBinding
 
-class UserAdapter(private var userItemList: List<UserItem>)
+class UserAdapter(private var userItemList: List<UserItemResponse>)
     : RecyclerView.Adapter<UserViewHolder>(){
 
     private lateinit var binding: ItemUserBinding
@@ -34,7 +34,7 @@ class UserAdapter(private var userItemList: List<UserItem>)
 
     override fun getItemCount(): Int = userItemList.size
 
-    fun updateList(filterList: List<UserItem>) {
+    fun updateList(filterList: List<UserItemResponse>) {
         userItemList = filterList
         notifyDataSetChanged()
     }
