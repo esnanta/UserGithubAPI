@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        showLoading(true)
         loadViewModel();
 
         val layoutManager = LinearLayoutManager(this)
@@ -38,10 +37,9 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
 
         setUpTopAppBar()
         showSearchView(false)
-        showLoading(false)
     }
 
-    private fun loadViewModel(){
+    private fun loadViewModel() {
 
         mainViewModel.listUser.observe(this) { listUserItem ->
             listUserItem?.let {
@@ -111,6 +109,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
             binding.progressBar.visibility = View.GONE
         }
     }
+
     private fun showSearchView(isShowing: Boolean) {
         if (isShowing) {
             binding.searchView.visibility = View.VISIBLE
@@ -121,9 +120,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
 
     override fun onUserItemClick(userItem: UserItem) {
         val intent = Intent(this, ItemDetailActivity::class.java)
-        intent.putExtra("loginUser", userItem.login) // Add this line
+        intent.putExtra("loginUser", userItem.login)
         startActivity(intent)
     }
 }
-
-
