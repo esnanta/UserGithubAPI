@@ -5,11 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.esnanta.usergithubapi.data.response.UserItem
 import com.esnanta.usergithubapi.data.response.UserResponse
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig
 import com.esnanta.usergithubapi.ui.MainActivity
 import com.esnanta.usergithubapi.utils.Event
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,8 +53,12 @@ class UserViewModel: ViewModel() {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _listUser.value = response.body()?.items
+                    if (_listUser.value.isNullOrEmpty()) {
+                        _snackbarText.value = Event("User not found")
+                    }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
+                    _snackbarText.value = Event("An error occurred") //
                 }
             }
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {

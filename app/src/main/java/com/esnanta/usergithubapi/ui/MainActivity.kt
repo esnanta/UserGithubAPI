@@ -3,7 +3,6 @@ package com.esnanta.usergithubapi.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -29,6 +28,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        showLoading(true)
         loadViewModel();
 
         val layoutManager = LinearLayoutManager(this)
@@ -36,8 +36,9 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.userRecyclerView.addItemDecoration(itemDecoration)
 
-        showSearchView(false)
         setUpTopAppBar()
+        showSearchView(false)
+        showLoading(false)
     }
 
     private fun loadViewModel(){
@@ -93,6 +94,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
                     true
                 }
                 R.id.refresh_menu -> {
+                    showLoading(true)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     true
@@ -118,7 +120,9 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
     }
 
     override fun onUserItemClick(userItem: UserItem) {
-        Toast.makeText(this, "You clicked: ${userItem.login}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, ItemDetailActivity::class.java)
+        startActivity(intent)
+        //Toast.makeText(this, "You clicked: ${userItem.login}", Toast.LENGTH_SHORT).show()
     }
 }
 
