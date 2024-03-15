@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
+class SectionsPagerAdapter(
+    activity: AppCompatActivity,
+    private var loginUser: String) : FragmentStateAdapter(activity) {
+
     override fun getItemCount(): Int {
         return 2
     }
@@ -14,6 +17,7 @@ class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(a
         val fragment = ProfileFragment()
         fragment.arguments = Bundle().apply {
             putInt(ProfileFragment.ARG_SECTION_NUMBER, position + 1)
+            putString(ProfileFragment.ARG_LOGIN_USER, loginUser)
         }
 
         return fragment

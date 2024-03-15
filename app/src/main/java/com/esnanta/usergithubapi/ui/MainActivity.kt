@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
             showLoading(it)
         }
 
-        mainViewModel.snackbarText.observe(this){
+        mainViewModel.snackBarText.observe(this){
             it.getContentIfNotHandled()?.let { snackBarText ->
                 Snackbar.make(
                     window.decorView.rootView, snackBarText,Snackbar.LENGTH_SHORT
@@ -121,8 +121,8 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
 
     override fun onUserItemClick(userItem: UserItem) {
         val intent = Intent(this, ItemDetailActivity::class.java)
+        intent.putExtra("loginUser", userItem.login) // Add this line
         startActivity(intent)
-        //Toast.makeText(this, "You clicked: ${userItem.login}", Toast.LENGTH_SHORT).show()
     }
 }
 

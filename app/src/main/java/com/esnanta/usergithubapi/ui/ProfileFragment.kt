@@ -27,7 +27,9 @@ class ProfileFragment : Fragment() {
 
         val tvLabel: TextView = binding.sectionLabel
         val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
-        tvLabel.text = getString(R.string.content_tab_text, index)
+        val loginUser = arguments?.getString(ARG_LOGIN_USER)
+
+        tvLabel.text = getString(R.string.content_tab_text, index) + loginUser
     }
 
     override fun onDestroyView() {
@@ -36,5 +38,6 @@ class ProfileFragment : Fragment() {
     }
     companion object {
         const val ARG_SECTION_NUMBER = "section_number"
+        const val ARG_LOGIN_USER = "login_user"
     }
 }

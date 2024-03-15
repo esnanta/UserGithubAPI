@@ -29,17 +29,16 @@ class UserViewModel: ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _snackbarText = MutableLiveData<Event<String>>()
-    val snackbarText: LiveData<Event<String>> = _snackbarText
-
-    private var loginUsername : String = "sidiqpermana"
+    private val _snackBarText = MutableLiveData<Event<String>>()
+    val snackBarText: LiveData<Event<String>> = _snackBarText
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName
+        private const val LOGIN_USER = "sidiqpermana"
     }
 
     init{
-        findUser(loginUsername)
+        findUser(LOGIN_USER)
     }
 
     fun findUser(searchUser:String) {
@@ -54,11 +53,11 @@ class UserViewModel: ViewModel() {
                 if (response.isSuccessful) {
                     _listUser.value = response.body()?.items
                     if (_listUser.value.isNullOrEmpty()) {
-                        _snackbarText.value = Event("User not found")
+                        _snackBarText.value = Event("User not found")
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
-                    _snackbarText.value = Event("An error occurred") //
+                    _snackBarText.value = Event("An error occurred") //
                 }
             }
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
