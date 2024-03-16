@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class ItemDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityItemDetailBinding
+    
     companion object {
         @StringRes
         private val TAB_TITLES = intArrayOf(
@@ -25,7 +26,8 @@ class ItemDetailActivity : AppCompatActivity() {
         binding = ActivityItemDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val loginUser = intent.getStringExtra("loginUser")
+        val loginUser = intent.getStringExtra("EXTRA_LOGIN_USER")
+
 
         val sectionsPagerAdapter = loginUser?.let { SectionsPagerAdapter(this, it) }
         val viewPager: ViewPager2 = binding.viewPager
@@ -37,5 +39,15 @@ class ItemDetailActivity : AppCompatActivity() {
         }.attach()
         supportActionBar?.elevation = 0f
 
+        if (savedInstanceState == null) {
+            val profileFragment =
+                loginUser?.let { ProfileFragment.newInstance(it) } // Create instance
+
+            if (profileFragment != null) {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, profileFragment)
+                    .commit()
+            }
+        }
     }
 }

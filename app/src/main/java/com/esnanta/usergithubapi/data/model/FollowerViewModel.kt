@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.esnanta.usergithubapi.data.response.FollowerItemResponse
 import com.esnanta.usergithubapi.data.response.FollowerResponse
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig
-import com.esnanta.usergithubapi.ui.MainActivity
+import com.esnanta.usergithubapi.ui.ItemDetailActivity
 import com.esnanta.usergithubapi.utils.Event
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,7 +28,7 @@ class FollowerViewModel: ViewModel() {
     val snackBarText: LiveData<Event<String>> = _snackBarText
 
     companion object {
-        private val TAG = MainActivity::class.java.simpleName
+        private val TAG = ItemDetailActivity::class.java.simpleName
         private const val LOGIN_USER = "sidiqpermana"
     }
 

@@ -7,15 +7,17 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.esnanta.usergithubapi.data.response.FollowerItemResponse
+import com.esnanta.usergithubapi.data.response.UserItemResponse
 import com.esnanta.usergithubapi.databinding.FragmentProfileBinding
+import com.esnanta.usergithubapi.databinding.ItemFollowerBinding
 
 class FollowerAdapter(private var followerItemList: List<FollowerItemResponse>)
     : RecyclerView.Adapter<FollowerViewHolder>(){
 
-    private lateinit var binding: FragmentProfileBinding
+    private lateinit var binding: ItemFollowerBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowerViewHolder {
-        binding = FragmentProfileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ItemFollowerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FollowerViewHolder(binding);
     }
 
@@ -25,6 +27,10 @@ class FollowerAdapter(private var followerItemList: List<FollowerItemResponse>)
     }
 
     override fun getItemCount(): Int = followerItemList.size
+    fun updateList(filterList: List<FollowerItemResponse>) {
+        followerItemList = filterList
+        notifyDataSetChanged()
+    }
 
     companion object BindingAdapters {
         @JvmStatic

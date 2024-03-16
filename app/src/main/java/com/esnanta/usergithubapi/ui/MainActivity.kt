@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: UserAdapter
 
-    private val mainViewModel: UserViewModel by viewModels()
+    private val viewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
 
     private fun loadViewModel() {
 
-        mainViewModel.listUser.observe(this) { listUserItem ->
+        viewModel.listUser.observe(this) { listUserItem ->
             listUserItem?.let {
                 adapter = UserAdapter(listUserItem)
                 adapter.updateList(it)
@@ -53,11 +53,11 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
             }
         }
 
-        mainViewModel.isLoading.observe(this) {
+        viewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
-        mainViewModel.snackBarText.observe(this){
+        viewModel.snackBarText.observe(this){
             it.getContentIfNotHandled()?.let { snackBarText ->
                 Snackbar.make(
                     window.decorView.rootView, snackBarText,Snackbar.LENGTH_SHORT
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
                         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                             override fun onQueryTextSubmit(query: String?): Boolean {
                                 if (query != null) {
-                                    mainViewModel.findUser(query)
+                                    viewModel.findUser(query)
                                 }
                                 showSearchView(false)
                                 return false
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
 
     override fun onUserItemClick(userItem: UserItemResponse) {
         val intent = Intent(this, ItemDetailActivity::class.java)
-        intent.putExtra("loginUser", userItem.login)
+        intent.putExtra("EXTRA_LOGIN_USER", userItem.login)
         startActivity(intent)
     }
 }
