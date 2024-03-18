@@ -1,14 +1,13 @@
 package com.esnanta.usergithubapi.data.response
 
 import com.google.gson.annotations.SerializedName
+import com.google.gson.Gson
 
 data class FollowerResponse(
-
-	@field:SerializedName("follower_list")
-	val followerList: List<FollowerItemResponse>? = null
+	val followerList: List<FollowerResponseItem>
 )
 
-data class FollowerItemResponse(
+data class FollowerResponseItem(
 
 	@field:SerializedName("gists_url")
 	val gistsUrl: String? = null,

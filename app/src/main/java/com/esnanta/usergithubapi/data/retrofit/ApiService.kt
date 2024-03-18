@@ -1,6 +1,7 @@
 package com.esnanta.usergithubapi.data.retrofit
 
 import com.esnanta.usergithubapi.data.response.FollowerResponse
+import com.esnanta.usergithubapi.data.response.FollowerResponseItem
 import com.esnanta.usergithubapi.data.response.FollowingResponse
 import com.esnanta.usergithubapi.data.response.UserResponse
 import retrofit2.Call
@@ -18,8 +19,8 @@ interface ApiService {
     @GET("users/{login}")
     fun getDetail(@Path("login") login: String): Call<UserResponse>
 
-    @GET("users/{login}/followers")
-    fun getListFollower(@Path("login") login: String): Call<FollowerResponse>
+    @GET("users/{username}/followers")
+    fun getListFollower(@Path("username") username: String): Call<List<FollowerResponseItem>>
 
     @GET("users/{login}/following")
     fun getListFollowing(@Path("login") login: String): Call<FollowingResponse>

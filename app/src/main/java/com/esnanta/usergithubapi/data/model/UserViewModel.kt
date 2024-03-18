@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.esnanta.usergithubapi.data.response.FollowerItemResponse
 import com.esnanta.usergithubapi.data.response.UserItemResponse
 import com.esnanta.usergithubapi.data.response.UserResponse
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig
@@ -21,9 +20,6 @@ class UserViewModel: ViewModel() {
 
     private val _listUser = MutableLiveData<List<UserItemResponse>?>()
     val listUser: MutableLiveData<List<UserItemResponse>?> = _listUser
-
-    private val _listFollower = MutableLiveData<List<FollowerItemResponse>?>()
-    val listFollower: MutableLiveData<List<FollowerItemResponse>?> = _listFollower
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading

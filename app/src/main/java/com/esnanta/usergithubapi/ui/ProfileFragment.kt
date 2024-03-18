@@ -49,11 +49,11 @@ class ProfileFragment : Fragment() {
         viewModel.listFollower.observe(viewLifecycleOwner) { listFollowerItem ->
             listFollowerItem?.let {
                 adapter = FollowerAdapter(listFollowerItem)
-                adapter!!.updateList(it)
+                adapter?.updateList(it)
 
-                binding.userRecyclerView.adapter = adapter
-                binding.userRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-                binding.userRecyclerView.setHasFixedSize(true)
+                binding?.userRecyclerView?.adapter = adapter
+                binding?.userRecyclerView?.layoutManager = LinearLayoutManager(requireContext())
+                binding?.userRecyclerView?.setHasFixedSize(true)
             }
         }
 

@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.esnanta.usergithubapi.data.response.FollowerItemResponse
 import com.esnanta.usergithubapi.data.response.FollowerResponse
+import com.esnanta.usergithubapi.data.response.FollowerResponseItem
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig
 import com.esnanta.usergithubapi.ui.ItemDetailActivity
 import com.esnanta.usergithubapi.utils.Event
@@ -15,11 +15,11 @@ import retrofit2.Response
 
 class FollowerViewModel: ViewModel() {
 
-    private val _followerItem = MutableLiveData<FollowerItemResponse>()
-    val followerItem: LiveData<FollowerItemResponse> = _followerItem
+    private val _followerItem = MutableLiveData<FollowerResponseItem>()
+    val followerItem: LiveData<FollowerResponseItem> = _followerItem
 
-    private val _listFollower = MutableLiveData<List<FollowerItemResponse>?>()
-    val listFollower: MutableLiveData<List<FollowerItemResponse>?> = _listFollower
+    private val _listFollower = MutableLiveData<List<FollowerResponseItem>>()
+    val listFollower: LiveData<List<FollowerResponseItem>> = _listFollower
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -39,14 +39,14 @@ class FollowerViewModel: ViewModel() {
     fun findFollower(searchUser:String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getListFollower(searchUser)
-        client.enqueue(object : Callback<FollowerResponse> {
+        client.enqueue(object : Callback <List<FollowerResponseItem>> {
             override fun onResponse(
-                call: Call<FollowerResponse>,
-                response: Response<FollowerResponse>
+                call: Call<List<FollowerResponseItem>>,
+                response: Response <List<FollowerResponseItem>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _listFollower.value = response.body()?.followerList
+                    _listFollower.value = response.body()
                     if (_listFollower.value.isNullOrEmpty()) {
                         _snackBarText.value = Event("User not found")
                     }
@@ -55,10 +55,12 @@ class FollowerViewModel: ViewModel() {
                     _snackBarText.value = Event("An error occurred") //
                 }
             }
-            override fun onFailure(call: Call<FollowerResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<FollowerResponseItem>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
     }
 }
+
+

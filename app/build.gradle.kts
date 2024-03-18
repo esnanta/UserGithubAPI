@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    kotlin("plugin.serialization") version "1.7.10"
 }
 
 android {
@@ -54,12 +55,6 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
-
-    implementation("com.loopj.android:android-async-http:1.4.9")
-    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
-
-    implementation("de.hdodenhof:circleimageview:3.1.0")
-
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

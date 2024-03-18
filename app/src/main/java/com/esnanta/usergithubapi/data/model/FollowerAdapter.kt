@@ -6,12 +6,10 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.esnanta.usergithubapi.data.response.FollowerItemResponse
-import com.esnanta.usergithubapi.data.response.UserItemResponse
-import com.esnanta.usergithubapi.databinding.FragmentProfileBinding
+import com.esnanta.usergithubapi.data.response.FollowerResponseItem
 import com.esnanta.usergithubapi.databinding.ItemFollowerBinding
 
-class FollowerAdapter(private var followerItemList: List<FollowerItemResponse>)
+class FollowerAdapter(private var followerItemList: List<FollowerResponseItem>)
     : RecyclerView.Adapter<FollowerViewHolder>(){
 
     private lateinit var binding: ItemFollowerBinding
@@ -27,7 +25,7 @@ class FollowerAdapter(private var followerItemList: List<FollowerItemResponse>)
     }
 
     override fun getItemCount(): Int = followerItemList.size
-    fun updateList(filterList: List<FollowerItemResponse>) {
+    fun updateList(filterList: List<FollowerResponseItem>) {
         followerItemList = filterList
         notifyDataSetChanged()
     }
