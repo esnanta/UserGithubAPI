@@ -17,11 +17,11 @@ interface ApiService {
     fun getSearch(@Query("q") query: String): Call<UserResponse>
 
     @GET("users/{login}")
-    fun getDetail(@Path("login") login: String): Call<UserResponse>
+    fun getDetail(@Path("username") login: String): Call<UserResponse>
 
     @GET("users/{username}/followers")
     fun getListFollower(@Path("username") username: String): Call<List<FollowerResponseItem>>
 
-    @GET("users/{login}/following")
-    fun getListFollowing(@Path("login") login: String): Call<FollowingResponse>
+    @GET("users/{username}/following")
+    fun getListFollowing(@Path("username") login: String): Call<FollowingResponse>
 }

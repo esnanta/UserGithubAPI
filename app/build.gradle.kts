@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    kotlin("plugin.serialization") version "1.7.10"
 }
 
 android {
@@ -43,11 +42,10 @@ android {
 
 dependencies {
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation("androidx.activity:activity-ktx:1.8.2")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.fragment:fragment-ktx:1.5.6")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     kapt("com.github.bumptech.glide:compiler:4.14.2")
