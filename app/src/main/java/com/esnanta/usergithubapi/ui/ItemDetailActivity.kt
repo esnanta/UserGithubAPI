@@ -38,15 +38,5 @@ class ItemDetailActivity : AppCompatActivity() {
         }.attach()
         supportActionBar?.elevation = 0f
 
-        if (savedInstanceState == null) {
-            val profileFragment =
-                loginUser?.let { ProfileFragment.newInstance(it) } // Create instance
-
-            if (profileFragment != null) {
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, profileFragment)
-                    .commit()
-            }
-        }
     }
 }

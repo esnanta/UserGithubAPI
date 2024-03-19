@@ -20,15 +20,6 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private var _adapterFollower: FollowerAdapter? = null
-    private var adapterFollower: FollowerAdapter? = _adapterFollower
-
-    private var _adapterFollowing: FollowingAdapter? = null
-    private var adapterFollowing: FollowingAdapter? = _adapterFollowing
-
-    private val viewModelFollower: FollowerViewModel by viewModels()
-    private val viewModelFollowing: FollowingViewModel by viewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,55 +29,58 @@ class ProfileFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
+        if(index==1){
             arguments?.getString(ARG_LOGIN_USER)?.let { loadViewModelFollower(it) }
+        }else{
             arguments?.getString(ARG_LOGIN_USER)?.let { loadViewModelFollowing(it) }
+        }
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.setHasFixedSize(true)
+
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.setLayoutManager(layoutManager)
+        val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
+        binding.recyclerView.addItemDecoration(itemDecoration)
     }
 
     private fun loadViewModelFollower(loginUser : String) {
 
-        viewModelFollower.findFollower(loginUser)
+        val viewModel : FollowerViewModel by viewModels()
+        var adapterFollower: FollowerAdapter?
 
-        viewModelFollower.listFollower.observe(viewLifecycleOwner) { listFollowerItem ->
+        viewModel.findFollower(loginUser)
+
+        viewModel.listFollower.observe(viewLifecycleOwner) { listFollowerItem ->
             listFollowerItem?.let {
                 adapterFollower = FollowerAdapter(listFollowerItem)
                 adapterFollower?.updateList(it)
-
-                binding.followerRecyclerView.adapter = adapterFollower
-                binding.followerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-                binding.followerRecyclerView.setHasFixedSize(true)
-
-                val layoutManager = LinearLayoutManager(requireContext())
-                binding.followerRecyclerView.setLayoutManager(layoutManager)
-                val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
-                binding.followerRecyclerView.addItemDecoration(itemDecoration)
+                binding.recyclerView.adapter = adapterFollower
             }
         }
 
-        viewModelFollower.isLoading.observe(viewLifecycleOwner) {
+        viewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
     }
 
     private fun loadViewModelFollowing(loginUser : String) {
-        viewModelFollowing.findFollowing(loginUser)
+        val viewModel : FollowingViewModel by viewModels()
+        var adapterFollowing: FollowingAdapter?
 
-        viewModelFollowing.listFollowing.observe(viewLifecycleOwner) { listFollowingItem ->
+        viewModel.findFollowing(loginUser)
+
+        viewModel.listFollowing.observe(viewLifecycleOwner) { listFollowingItem ->
             listFollowingItem?.let {
                 adapterFollowing = FollowingAdapter(listFollowingItem)
                 adapterFollowing?.updateList(it)
-
-                binding.followingRecyclerView.adapter = adapterFollowing
-                binding.followingRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-                binding.followingRecyclerView.setHasFixedSize(true)
-
-                val layoutManager = LinearLayoutManager(requireContext())
-                binding.followingRecyclerView.setLayoutManager(layoutManager)
-                val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
-                binding.followingRecyclerView.addItemDecoration(itemDecoration)
+                binding.recyclerView.adapter = adapterFollowing
             }
         }
 
-        viewModelFollowing.isLoading.observe(viewLifecycleOwner) {
+        viewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
     }
@@ -101,18 +95,9 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding  = null
-        _adapterFollower = null
-        _adapterFollowing = null
     }
     companion object {
         const val ARG_SECTION_NUMBER = "section_number"
         const val ARG_LOGIN_USER = "login_user"
-        fun newInstance(loginUser: String): ProfileFragment {
-            val fragment = ProfileFragment()
-            val args = Bundle()
-            args.putString(ARG_LOGIN_USER, loginUser)
-            fragment.arguments = args
-            return fragment
-        }
     }
 }
