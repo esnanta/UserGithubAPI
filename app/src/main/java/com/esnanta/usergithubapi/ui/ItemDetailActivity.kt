@@ -28,7 +28,6 @@ class ItemDetailActivity : AppCompatActivity() {
 
         val loginUser = intent.getStringExtra("EXTRA_LOGIN_USER")
 
-
         val sectionsPagerAdapter = loginUser?.let { SectionsPagerAdapter(this, it) }
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter

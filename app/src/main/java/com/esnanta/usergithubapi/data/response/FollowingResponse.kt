@@ -4,11 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class FollowingResponse(
 
-	@field:SerializedName("following_response")
-	val followingResponse: List<FollowingItemResponse>? = null
+	val followingList: List<FollowingResponseItem>
 )
 
-data class FollowingItemResponse(
+data class FollowingResponseItem(
 
 	@field:SerializedName("gists_url")
 	val gistsUrl: String? = null,
