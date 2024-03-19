@@ -1,6 +1,5 @@
 package com.esnanta.usergithubapi.data.model
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -15,11 +14,6 @@ class SectionsPagerAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        val fragment = ProfileFragment()
-        fragment.arguments = Bundle().apply {
-            putInt(ProfileFragment.ARG_SECTION_NUMBER, position + 1)
-            putString(ProfileFragment.ARG_LOGIN_USER, loginUser)
-        }
-        return fragment
+        return ProfileFragment.newInstance(loginUser, position + 1)
     }
 }

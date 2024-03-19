@@ -99,5 +99,14 @@ class ProfileFragment : Fragment() {
     companion object {
         const val ARG_SECTION_NUMBER = "section_number"
         const val ARG_LOGIN_USER = "login_user"
+        fun newInstance(loginUser: String, sectionNumber: Int): ProfileFragment {
+            val fragment = ProfileFragment()
+            val args = Bundle().apply {
+                putString(ARG_LOGIN_USER, loginUser)
+                putInt(ARG_SECTION_NUMBER, sectionNumber)
+            }
+            fragment.arguments = args
+            return fragment
+        }
     }
 }
