@@ -2,7 +2,7 @@ package com.esnanta.usergithubapi.data.retrofit
 
 import com.esnanta.usergithubapi.data.response.FollowerResponseItem
 import com.esnanta.usergithubapi.data.response.FollowingResponseItem
-import com.esnanta.usergithubapi.data.response.UserResponse
+import com.esnanta.usergithubapi.data.response.SearchResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -13,10 +13,10 @@ interface ApiService {
     @Headers("Authorization: token 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")
 
     @GET("search/users")
-    fun getSearch(@Query("q") query: String): Call<UserResponse>
+    fun getSearch(@Query("q") query: String): Call<SearchResponse>
 
     @GET("users/{login}")
-    fun getDetail(@Path("username") login: String): Call<UserResponse>
+    fun getDetail(@Path("username") login: String): Call<SearchResponse>
 
     @GET("users/{username}/followers")
     fun getListFollower(@Path("username") username: String): Call<List<FollowerResponseItem>>

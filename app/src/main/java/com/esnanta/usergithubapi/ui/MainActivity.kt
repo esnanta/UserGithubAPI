@@ -9,19 +9,19 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esnanta.usergithubapi.R
-import com.esnanta.usergithubapi.model.search.UserAdapter
-import com.esnanta.usergithubapi.model.IUserItemClickListener
-import com.esnanta.usergithubapi.model.search.UserViewModel
-import com.esnanta.usergithubapi.data.response.UserItemResponse
+import com.esnanta.usergithubapi.model.search.SearchAdapter
+import com.esnanta.usergithubapi.model.search.IUserItemClickListener
+import com.esnanta.usergithubapi.model.search.SearchViewModel
+import com.esnanta.usergithubapi.data.response.SearchResponseItem
 import com.esnanta.usergithubapi.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity : AppCompatActivity(), IUserItemClickListener {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: UserAdapter
+    private lateinit var adapter: SearchAdapter
 
-    private val viewModel: UserViewModel by viewModels()
+    private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
 
         viewModel.listUser.observe(this) { listUserItem ->
             listUserItem?.let {
-                adapter = UserAdapter(listUserItem)
+                adapter = SearchAdapter(listUserItem)
                 adapter.updateList(it)
                 adapter.setOnItemClickListener(this)
 
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
         }
     }
 
-    override fun onUserItemClick(userItem: UserItemResponse) {
+    override fun onUserItemClick(userItem: SearchResponseItem) {
         val intent = Intent(this, ItemDetailActivity::class.java)
         intent.putExtra("EXTRA_LOGIN_USER", userItem.login)
         startActivity(intent)

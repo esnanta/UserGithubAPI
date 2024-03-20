@@ -2,7 +2,7 @@ package com.esnanta.usergithubapi.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class UserResponse(
+data class SearchResponse(
 
 	@field:SerializedName("total_count")
 	val totalCount: Int? = null,
@@ -11,10 +11,10 @@ data class UserResponse(
 	val incompleteResults: Boolean? = null,
 
 	@field:SerializedName("items")
-	val items: List<UserItemResponse>? = null
+	val items: List<SearchResponseItem>? = null
 )
 
-data class UserItemResponse(
+data class SearchResponseItem(
 
 	@field:SerializedName("id")
 	val id: Int? = null,

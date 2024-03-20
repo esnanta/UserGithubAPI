@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.esnanta.usergithubapi.data.response.UserItemResponse
-import com.esnanta.usergithubapi.data.response.UserResponse
+import com.esnanta.usergithubapi.data.response.SearchResponseItem
+import com.esnanta.usergithubapi.data.response.SearchResponse
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig
 import com.esnanta.usergithubapi.ui.MainActivity
 import com.esnanta.usergithubapi.utils.Event
@@ -13,13 +13,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserViewModel: ViewModel() {
+class SearchViewModel: ViewModel() {
 
-    private val _userItem = MutableLiveData<UserItemResponse>()
-    val userItem: LiveData<UserItemResponse> = _userItem
+    private val _userItem = MutableLiveData<SearchResponseItem>()
+    val userItem: LiveData<SearchResponseItem> = _userItem
 
-    private val _listUser = MutableLiveData<List<UserItemResponse>?>()
-    val listUser: MutableLiveData<List<UserItemResponse>?> = _listUser
+    private val _listUser = MutableLiveData<List<SearchResponseItem>?>()
+    val listUser: MutableLiveData<List<SearchResponseItem>?> = _listUser
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -39,10 +39,10 @@ class UserViewModel: ViewModel() {
     fun findUser(searchUser:String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getSearch(searchUser)
-        client.enqueue(object : Callback<UserResponse> {
+        client.enqueue(object : Callback<SearchResponse> {
             override fun onResponse(
-                call: Call<UserResponse>,
-                response: Response<UserResponse>
+                call: Call<SearchResponse>,
+                response: Response<SearchResponse>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -55,7 +55,7 @@ class UserViewModel: ViewModel() {
                     _snackBarText.value = Event("An error occurred") //
                 }
             }
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }

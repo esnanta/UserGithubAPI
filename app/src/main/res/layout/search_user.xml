@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="dataItem" type="com.esnanta.usergithubapi.data.response.UserItemResponse" />
+        <variable name="dataItem" type="com.esnanta.usergithubapi.data.response.SearchResponseItem" />
     </data>
 
     <LinearLayout
