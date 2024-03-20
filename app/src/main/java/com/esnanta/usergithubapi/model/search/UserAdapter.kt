@@ -1,4 +1,4 @@
-package com.esnanta.usergithubapi.data.model
+package com.esnanta.usergithubapi.model.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.esnanta.usergithubapi.data.response.UserItemResponse
 import com.esnanta.usergithubapi.databinding.ItemUserBinding
+import com.esnanta.usergithubapi.model.IUserItemClickListener
 
 class UserAdapter(private var userItemList: List<UserItemResponse>)
     : RecyclerView.Adapter<UserViewHolder>(){

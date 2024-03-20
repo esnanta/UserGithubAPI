@@ -9,9 +9,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esnanta.usergithubapi.R
-import com.esnanta.usergithubapi.data.model.UserAdapter
-import com.esnanta.usergithubapi.data.model.IUserItemClickListener
-import com.esnanta.usergithubapi.data.model.UserViewModel
+import com.esnanta.usergithubapi.model.search.UserAdapter
+import com.esnanta.usergithubapi.model.IUserItemClickListener
+import com.esnanta.usergithubapi.model.search.UserViewModel
 import com.esnanta.usergithubapi.data.response.UserItemResponse
 import com.esnanta.usergithubapi.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar

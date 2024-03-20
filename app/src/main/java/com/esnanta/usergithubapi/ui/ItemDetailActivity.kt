@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.esnanta.usergithubapi.R
-import com.esnanta.usergithubapi.data.model.SectionsPagerAdapter
+import com.esnanta.usergithubapi.model.SectionsPagerAdapter
 import com.esnanta.usergithubapi.databinding.ActivityItemDetailBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

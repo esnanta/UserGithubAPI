@@ -1,4 +1,4 @@
-package com.esnanta.usergithubapi.data.model
+package com.esnanta.usergithubapi.model
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

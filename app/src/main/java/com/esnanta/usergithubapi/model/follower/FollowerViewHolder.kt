@@ -1,4 +1,4 @@
-package com.esnanta.usergithubapi.data.model
+package com.esnanta.usergithubapi.model.follower
 
 import androidx.recyclerview.widget.RecyclerView
 import com.esnanta.usergithubapi.data.response.FollowerResponseItem

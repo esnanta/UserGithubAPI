@@ -1,10 +1,9 @@
-package com.esnanta.usergithubapi.data.model
+package com.esnanta.usergithubapi.model.following
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.esnanta.usergithubapi.data.response.FollowerResponse
 import com.esnanta.usergithubapi.data.response.FollowingResponseItem
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig
 import com.esnanta.usergithubapi.ui.ItemDetailActivity

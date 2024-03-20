@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.esnanta.usergithubapi.data.model.FollowerAdapter
-import com.esnanta.usergithubapi.data.model.FollowerViewModel
-import com.esnanta.usergithubapi.data.model.FollowingAdapter
-import com.esnanta.usergithubapi.data.model.FollowingViewModel
+import com.esnanta.usergithubapi.model.follower.FollowerAdapter
+import com.esnanta.usergithubapi.model.follower.FollowerViewModel
+import com.esnanta.usergithubapi.model.following.FollowingAdapter
+import com.esnanta.usergithubapi.model.following.FollowingViewModel
 import com.esnanta.usergithubapi.databinding.FragmentProfileBinding
 
 

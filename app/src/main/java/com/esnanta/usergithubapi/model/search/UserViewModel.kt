@@ -1,25 +1,25 @@
-package com.esnanta.usergithubapi.data.model
+package com.esnanta.usergithubapi.model.search
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.esnanta.usergithubapi.data.response.FollowerResponse
-import com.esnanta.usergithubapi.data.response.FollowerResponseItem
+import com.esnanta.usergithubapi.data.response.UserItemResponse
+import com.esnanta.usergithubapi.data.response.UserResponse
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig
-import com.esnanta.usergithubapi.ui.ItemDetailActivity
+import com.esnanta.usergithubapi.ui.MainActivity
 import com.esnanta.usergithubapi.utils.Event
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FollowerViewModel: ViewModel() {
+class UserViewModel: ViewModel() {
 
-    private val _followerItem = MutableLiveData<FollowerResponseItem>()
-    val followerItem: LiveData<FollowerResponseItem> = _followerItem
+    private val _userItem = MutableLiveData<UserItemResponse>()
+    val userItem: LiveData<UserItemResponse> = _userItem
 
-    private val _listFollower = MutableLiveData<List<FollowerResponseItem>>()
-    val listFollower: LiveData<List<FollowerResponseItem>> = _listFollower
+    private val _listUser = MutableLiveData<List<UserItemResponse>?>()
+    val listUser: MutableLiveData<List<UserItemResponse>?> = _listUser
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -28,26 +28,26 @@ class FollowerViewModel: ViewModel() {
     val snackBarText: LiveData<Event<String>> = _snackBarText
 
     companion object {
-        private val TAG = ItemDetailActivity::class.java.simpleName
+        private val TAG = MainActivity::class.java.simpleName
         private const val LOGIN_USER = "sidiqpermana"
     }
 
     init{
-        findFollower(LOGIN_USER)
+        findUser(LOGIN_USER)
     }
 
-    fun findFollower(searchUser:String) {
+    fun findUser(searchUser:String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getListFollower(searchUser)
-        client.enqueue(object : Callback <List<FollowerResponseItem>> {
+        val client = ApiConfig.getApiService().getSearch(searchUser)
+        client.enqueue(object : Callback<UserResponse> {
             override fun onResponse(
-                call: Call<List<FollowerResponseItem>>,
-                response: Response <List<FollowerResponseItem>>
+                call: Call<UserResponse>,
+                response: Response<UserResponse>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _listFollower.value = response.body()
-                    if (_listFollower.value.isNullOrEmpty()) {
+                    _listUser.value = response.body()?.items
+                    if (_listUser.value.isNullOrEmpty()) {
                         _snackBarText.value = Event("User not found")
                     }
                 } else {
@@ -55,12 +55,10 @@ class FollowerViewModel: ViewModel() {
                     _snackBarText.value = Event("An error occurred") //
                 }
             }
-            override fun onFailure(call: Call<List<FollowerResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
     }
 }
-
-

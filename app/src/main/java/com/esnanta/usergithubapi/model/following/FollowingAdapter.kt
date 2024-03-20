@@ -1,4 +1,4 @@
-package com.esnanta.usergithubapi.data.model
+package com.esnanta.usergithubapi.model.following
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
