@@ -19,8 +19,6 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), IUserItemClickListener {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: SearchAdapter
-
     private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,12 +38,12 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
     }
 
     private fun loadViewModel() {
-
+        var adapter: SearchAdapter
         viewModel.listUser.observe(this) { listUserItem ->
             listUserItem?.let {
                 adapter = SearchAdapter(listUserItem)
-                adapter.updateList(it)
                 adapter.setOnItemClickListener(this)
+                adapter.updateList(it)
 
                 binding.userRecyclerView.adapter = adapter
                 binding.userRecyclerView.layoutManager = LinearLayoutManager(this)
