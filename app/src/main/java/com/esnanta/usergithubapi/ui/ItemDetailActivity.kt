@@ -57,7 +57,8 @@ class ItemDetailActivity : AppCompatActivity() {
         viewModel.findUser(loginUser)
 
         viewModel.userItem.observe(this) { user ->
-            binding.profileLogin.text = user.login
+            binding.profileName.text = user.name ?: "-NULL-"
+            binding.profileLogin.text = "(" + user.login + ")"
             binding.profileFollower.text = resources.getString(R.string.followers) + " " + user.followers!!
             binding.profileFollowing.text = resources.getString(R.string.following) + " " + user.following!!
 
