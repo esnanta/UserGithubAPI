@@ -28,12 +28,8 @@ class FollowerViewModel: ViewModel() {
 
     companion object {
         private val TAG = ItemDetailActivity::class.java.simpleName
-        private const val LOGIN_USER = "sidiqpermana"
     }
 
-    init{
-        findFollower(LOGIN_USER)
-    }
 
     fun findFollower(searchUser:String) {
         _isLoading.value = true

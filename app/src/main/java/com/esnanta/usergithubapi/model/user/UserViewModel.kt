@@ -25,11 +25,6 @@ class UserViewModel: ViewModel() {
 
     companion object {
         private val TAG = ItemDetailActivity::class.java.simpleName
-        private const val LOGIN_USER = "sidiqpermana"
-    }
-
-    init{
-        findUser(LOGIN_USER)
     }
 
     fun findUser(searchUser:String) {

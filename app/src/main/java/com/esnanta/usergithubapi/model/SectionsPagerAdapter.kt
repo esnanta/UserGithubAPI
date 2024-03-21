@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.esnanta.usergithubapi.ui.ProfileFragment
 
-class SectionsPagerAdapter(
-    activity: AppCompatActivity, private var loginUser: String)
+class SectionsPagerAdapter(activity: AppCompatActivity, private var loginUser: String)
     : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int {
