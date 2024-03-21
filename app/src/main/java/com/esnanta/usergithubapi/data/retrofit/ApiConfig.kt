@@ -1,5 +1,6 @@
 package com.esnanta.usergithubapi.data.retrofit
 
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,6 +11,14 @@ class ApiConfig {
         private const val DEBUG = true
         fun getApiService(): ApiService {
 
+            val authInterceptor = Interceptor { chain ->
+                val req = chain.request()
+                val requestHeaders = req.newBuilder()
+                    .addHeader("Authorization", "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")
+                    .build()
+                chain.proceed(requestHeaders)
+            }
+
             val loggingInterceptor = if(DEBUG) {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             } else {
@@ -18,6 +27,7 @@ class ApiConfig {
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
+                .addInterceptor(authInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://api.github.com/")

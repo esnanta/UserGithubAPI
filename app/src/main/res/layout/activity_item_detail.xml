@@ -40,13 +40,13 @@
                         app:imageUrl="@{dataItem.avatarUrl}"/>
 
                     <TextView
-                        android:id="@+id/profile_name"
+                        android:id="@+id/profile_login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginTop="8dp"
-                        tools:text="@{dataItem.name}"/>
+                        tools:text="@{dataItem.login}"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"

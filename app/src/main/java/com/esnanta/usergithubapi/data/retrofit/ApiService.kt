@@ -14,18 +14,14 @@ interface ApiService {
 
 
     @GET("search/users")
-    @Headers("Authorization: token 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")
     fun getSearch(@Query("q") query: String): Call<SearchResponse>
 
     @GET("users/{username}")
-    @Headers("Authorization: token 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")
     fun getDetail(@Path("username") username: String): Call<UserResponse>
 
     @GET("users/{username}/followers")
-    @Headers("Authorization: token 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")
     fun getListFollower(@Path("username") username: String): Call<List<FollowerResponseItem>>
 
     @GET("users/{username}/following")
-    @Headers("Authorization: token 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")
     fun getListFollowing(@Path("username") username: String): Call<List<FollowingResponseItem>>
 }

@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
     }
 
     override fun onUserItemClick(userItem: SearchResponseItem) {
-        val intent = Intent(this, ItemDetailActivity::class.java)
+        var intent = Intent(this, ItemDetailActivity::class.java)
         intent.putExtra("EXTRA_LOGIN_USER", userItem.login)
         startActivity(intent)
     }
