@@ -38,16 +38,4 @@ class SearchAdapter(private var searchUserList: List<SearchResponseItem>)
         searchUserList = filterList
         notifyDataSetChanged()
     }
-
-    companion object BindingAdapters {
-        @JvmStatic
-        @BindingAdapter("imageUrl")
-        fun loadImage(imageView: ImageView, url: String?) {
-            if (!url.isNullOrBlank()) {
-                Glide.with(imageView.context)
-                    .load(url)
-                    .into(imageView)
-            }
-        }
-    }
 }
