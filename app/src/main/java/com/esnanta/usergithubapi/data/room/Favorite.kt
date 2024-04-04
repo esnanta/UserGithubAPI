@@ -1,4 +1,4 @@
-package com.esnanta.usergithubapi.model.favorite
+package com.esnanta.usergithubapi.data.room
 
 import android.os.Parcelable
 import androidx.room.Entity
