@@ -50,7 +50,10 @@ class ItemDetailActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0f
 
         val fabFavorites: View = binding.fabFavorites
-        fabFavorites.setOnClickListener { view ->
+        fabFavorites.setOnClickListener {
+
+
+            view ->
             Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show()

@@ -6,17 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [Favorite::class], version = 1, exportSchema = false)
-abstract class FavoriteDatabase : RoomDatabase() {
+abstract class FavoriteRoomDatabase : RoomDatabase() {
     abstract fun favoriteDao(): FavoriteDao
 
     companion object {
         @Volatile
-        private var instance: FavoriteDatabase? = null
-        fun getInstance(context: Context): FavoriteDatabase =
+        private var instance: FavoriteRoomDatabase? = null
+        fun getInstance(context: Context): FavoriteRoomDatabase =
             instance ?: synchronized(this) {
                 instance ?: Room.databaseBuilder(
                     context.applicationContext,
-                    FavoriteDatabase::class.java, "favorite.db"
+                    FavoriteRoomDatabase::class.java, "favorite.db"
                 ).build()
             }
     }

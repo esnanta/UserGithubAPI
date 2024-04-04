@@ -3,7 +3,7 @@ package com.esnanta.usergithubapi.helper
 import androidx.recyclerview.widget.DiffUtil
 import com.esnanta.usergithubapi.data.room.Favorite
 
-class NoteDiffCallback(
+class FavoriteDiffCallback(
     private val oldFavoriteList: List<Favorite>,
     private val newFavoriteList: List<Favorite>) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldFavoriteList.size
