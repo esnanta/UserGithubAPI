@@ -8,18 +8,23 @@ import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.esnanta.usergithubapi.R
+import com.esnanta.usergithubapi.data.room.Favorite
 import com.esnanta.usergithubapi.model.SectionsPagerAdapter
 import com.esnanta.usergithubapi.databinding.ActivityItemDetailBinding
+import com.esnanta.usergithubapi.helper.ViewModelFactory
 import com.esnanta.usergithubapi.model.user.UserViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ItemDetailActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityItemDetailBinding
+    private lateinit var viewModel: UserViewModel
 
     companion object {
         @StringRes
@@ -33,6 +38,8 @@ class ItemDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityItemDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel = obtainViewModelFactory(this@ItemDetailActivity)
 
         val loginUser = intent.getStringExtra("EXTRA_LOGIN_USER")
         if (loginUser != null) {
@@ -49,11 +56,17 @@ class ItemDetailActivity : AppCompatActivity() {
         }.attach()
         supportActionBar?.elevation = 0f
 
+
         val fabFavorites: View = binding.fabFavorites
-        fabFavorites.setOnClickListener {
 
 
-            view ->
+        fabFavorites.setOnClickListener { view ->
+            val favorite = Favorite()
+            favorite.let { favorite ->
+                favorite?.username = viewModel.userItem.value?.login.toString()
+                favorite?.avatarUrl = viewModel.userItem.value?.avatarUrl
+            }
+            viewModel.addToFavorites(favorite)
             Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show()
@@ -62,7 +75,7 @@ class ItemDetailActivity : AppCompatActivity() {
     }
 
     private fun loadViewModel(loginUser : String) {
-        val viewModel: UserViewModel by viewModels()
+
 
         viewModel.findUser(loginUser)
 
@@ -96,5 +109,10 @@ class ItemDetailActivity : AppCompatActivity() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    private fun obtainViewModelFactory(activity: AppCompatActivity): UserViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory)[UserViewModel::class.java]
     }
 }

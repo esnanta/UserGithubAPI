@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.esnanta.usergithubapi.model.favorite.FavoriteCRUDViewModel
 import com.esnanta.usergithubapi.model.favorite.FavoriteListViewModel
+import com.esnanta.usergithubapi.model.user.UserViewModel
 
 class ViewModelFactory private constructor(private val mApplication: Application)
     : ViewModelProvider.NewInstanceFactory() {
@@ -28,6 +29,8 @@ class ViewModelFactory private constructor(private val mApplication: Application
             return FavoriteListViewModel(mApplication) as T
         } else if (modelClass.isAssignableFrom(FavoriteCRUDViewModel::class.java)) {
             return FavoriteCRUDViewModel(mApplication) as T
+        } else if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
+            return UserViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
