@@ -26,11 +26,11 @@ class FavoriteAdapter(private val onFavoriteClick: (Favorite) -> Unit) :
         val favorite = getItem(position)
         holder.bind(favorite)
 
-        val ivFavorite = holder.binding.ivFavorite
+        //val ivFavorite = holder.binding.ivFavorite
 
-        ivFavorite.setOnClickListener {
-            onFavoriteClick(favorite)
-        }
+//        ivFavorite.setOnClickListener {
+//            onFavoriteClick(favorite)
+//        }
     }
 
     companion object {

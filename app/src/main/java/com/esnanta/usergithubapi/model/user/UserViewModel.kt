@@ -1,6 +1,7 @@
 package com.esnanta.usergithubapi.model.user
 
 import android.app.Application
+import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -28,12 +29,19 @@ class UserViewModel (application: Application): ViewModel() {
     private val _snackBarText = MutableLiveData<Event<String>>()
     val snackBarText: LiveData<Event<String>> = _snackBarText
 
+    private val _isFavoriteExisted = MutableLiveData(false)
+    val isFavoriteExisted: LiveData<Boolean> = _isFavoriteExisted
+
     companion object {
         private val TAG = ItemDetailActivity::class.java.simpleName
     }
 
     fun findUser(searchUser:String) {
         _isLoading.value = true
+
+        _isFavoriteExisted.value = mRepository.isFavoriteExisted(searchUser).value
+        Log.d(ContentValues.TAG, "_isFavoriteExisted.value result : $_isFavoriteExisted.value")
+
         val client = ApiConfig.getApiService().getDetail(searchUser)
         client.enqueue(object : Callback <UserResponse> {
             override fun onResponse(
@@ -43,9 +51,11 @@ class UserViewModel (application: Application): ViewModel() {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _userItem.value = response.body()
+
                     if (_userItem.value==null) {
                         _snackBarText.value = Event("User not found")
                     }
+
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                     _snackBarText.value = Event("An error occurred") //
@@ -58,7 +68,13 @@ class UserViewModel (application: Application): ViewModel() {
         })
     }
 
-    fun addToFavorites(favorite:Favorite){
+    fun addNewFavorites(favorite:Favorite){
         mRepository.insert(favorite)
+        _isFavoriteExisted.value = true
+    }
+
+    fun deleteFavorites(favorite:Favorite){
+        mRepository.delete(favorite)
+        _isFavoriteExisted.value = false
     }
 }

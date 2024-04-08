@@ -1,6 +1,8 @@
 package com.esnanta.usergithubapi.data.room
 
 import android.app.Application
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.LiveData
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -18,5 +20,10 @@ class FavoriteRepository(application: Application) {
     }
     fun delete(favorite: Favorite) {
         executorService.execute { mFavoriteDao.delete(favorite) }
+    }
+    fun isFavoriteExisted(username: String): LiveData<Boolean> {
+        val result = mFavoriteDao.isFavoriteExisted(username)
+        Log.d(TAG, "isExisted result for username $username: ${result.value}")
+        return result
     }
 }

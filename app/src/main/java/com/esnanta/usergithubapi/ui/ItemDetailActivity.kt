@@ -1,13 +1,10 @@
 package com.esnanta.usergithubapi.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -20,6 +17,7 @@ import com.esnanta.usergithubapi.model.user.UserViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+
 
 class ItemDetailActivity : AppCompatActivity() {
 
@@ -40,8 +38,8 @@ class ItemDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = obtainViewModelFactory(this@ItemDetailActivity)
-
         val loginUser = intent.getStringExtra("EXTRA_LOGIN_USER")
+
         if (loginUser != null) {
             loadViewModel(loginUser)
         }
@@ -56,26 +54,9 @@ class ItemDetailActivity : AppCompatActivity() {
         }.attach()
         supportActionBar?.elevation = 0f
 
-
-        val fabFavorites: View = binding.fabFavorites
-
-
-        fabFavorites.setOnClickListener { view ->
-            val favorite = Favorite()
-            favorite.let { favorite ->
-                favorite?.username = viewModel.userItem.value?.login.toString()
-                favorite?.avatarUrl = viewModel.userItem.value?.avatarUrl
-            }
-            viewModel.addToFavorites(favorite)
-            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
-        }
-
     }
 
     private fun loadViewModel(loginUser : String) {
-
 
         viewModel.findUser(loginUser)
 
@@ -88,6 +69,11 @@ class ItemDetailActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(user.avatarUrl)
                 .into(binding.profileImage)
+
+        }
+
+        viewModel.isFavoriteExisted.observe(this) {
+            updateFabButton(it)
         }
 
         viewModel.isLoading.observe(this) {
@@ -114,5 +100,27 @@ class ItemDetailActivity : AppCompatActivity() {
     private fun obtainViewModelFactory(activity: AppCompatActivity): UserViewModel {
         val factory = ViewModelFactory.getInstance(activity.application)
         return ViewModelProvider(activity, factory)[UserViewModel::class.java]
+    }
+
+    private fun updateFabButton(isFavorite: Boolean) {
+        val fabFavorites = binding.fabFavorites
+        val favorite = Favorite()
+        favorite.let { favorite ->
+            favorite?.username = viewModel.userItem.value?.login.toString()
+            favorite?.avatarUrl = viewModel.userItem.value?.avatarUrl
+        }
+
+        if (isFavorite) {
+            fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24))
+            fabFavorites.setOnClickListener {
+                viewModel.deleteFavorites(favorite)
+            }
+        }
+        else{
+            fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_border_24))
+            fabFavorites.setOnClickListener {
+                viewModel.addNewFavorites(favorite)
+            }
+        }
     }
 }
