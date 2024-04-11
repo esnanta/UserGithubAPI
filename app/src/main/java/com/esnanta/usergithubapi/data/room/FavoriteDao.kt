@@ -19,7 +19,7 @@ interface FavoriteDao {
     fun getFavoriteUserByUsername(username: String): LiveData<Favorite>
 
     @Query("SELECT EXISTS(SELECT * FROM favorite WHERE username = :username)")
-    fun isFavoriteExisted(username: String): LiveData<Boolean>
+    fun isFavoriteExisted(username: String): Boolean
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(favorite: Favorite)

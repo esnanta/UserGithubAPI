@@ -20,8 +20,8 @@ class UserViewModel (application: Application): ViewModel() {
 
     private val mRepository: FavoriteRepository = FavoriteRepository(application)
 
-    private val _userItem = MutableLiveData<UserResponse>()
-    val userItem: LiveData<UserResponse> = _userItem
+    private val _userResponse = MutableLiveData<UserResponse>()
+    val userResponse: LiveData<UserResponse> = _userResponse
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -39,9 +39,6 @@ class UserViewModel (application: Application): ViewModel() {
     fun findUser(searchUser:String) {
         _isLoading.value = true
 
-        _isFavoriteExisted.value = mRepository.isFavoriteExisted(searchUser).value
-        Log.d(ContentValues.TAG, "_isFavoriteExisted.value result : $_isFavoriteExisted.value")
-
         val client = ApiConfig.getApiService().getDetail(searchUser)
         client.enqueue(object : Callback <UserResponse> {
             override fun onResponse(
@@ -50,9 +47,10 @@ class UserViewModel (application: Application): ViewModel() {
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _userItem.value = response.body()
+                    _userResponse.value = response.body()
+                    _isFavoriteExisted.value = mRepository.isFavoriteExisted(searchUser)
 
-                    if (_userItem.value==null) {
+                    if (_userResponse.value==null) {
                         _snackBarText.value = Event("User not found")
                     }
 
@@ -76,5 +74,10 @@ class UserViewModel (application: Application): ViewModel() {
     fun deleteFavorites(favorite:Favorite){
         mRepository.delete(favorite)
         _isFavoriteExisted.value = false
+    }
+
+    suspend fun getIsFavorite(username:String){
+        _isFavoriteExisted.value = mRepository.isFavoriteExisted(username)
+        Log.d(ContentValues.TAG, "_isFavoriteExisted.value result : $_isFavoriteExisted.value")
     }
 }

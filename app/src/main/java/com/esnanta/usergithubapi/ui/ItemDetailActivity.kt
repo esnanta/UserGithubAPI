@@ -60,7 +60,7 @@ class ItemDetailActivity : AppCompatActivity() {
 
         viewModel.findUser(loginUser)
 
-        viewModel.userItem.observe(this) { user ->
+        viewModel.userResponse.observe(this) { user ->
             binding.profileName.text = user.name ?: "-NULL-"
             binding.profileLogin.text = "(" + user.login + ")"
             binding.profileFollower.text = resources.getString(R.string.followers) + " " + user.followers!!
@@ -106,8 +106,8 @@ class ItemDetailActivity : AppCompatActivity() {
         val fabFavorites = binding.fabFavorites
         val favorite = Favorite()
         favorite.let { favorite ->
-            favorite?.username = viewModel.userItem.value?.login.toString()
-            favorite?.avatarUrl = viewModel.userItem.value?.avatarUrl
+            favorite?.username = viewModel.userResponse.value?.login.toString()
+            favorite?.avatarUrl = viewModel.userResponse.value?.avatarUrl
         }
 
         if (isFavorite) {

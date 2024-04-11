@@ -21,9 +21,9 @@ class FavoriteRepository(application: Application) {
     fun delete(favorite: Favorite) {
         executorService.execute { mFavoriteDao.delete(favorite) }
     }
-    fun isFavoriteExisted(username: String): LiveData<Boolean> {
+    fun isFavoriteExisted(username: String): Boolean {
         val result = mFavoriteDao.isFavoriteExisted(username)
-        Log.d(TAG, "isExisted result for username $username: ${result.value}")
+        Log.d(TAG, "isExisted result for username $username: $result")
         return result
     }
 }
