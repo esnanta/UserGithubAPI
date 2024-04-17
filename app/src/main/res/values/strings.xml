@@ -2,6 +2,7 @@
     <string name="app_name">Github User Search</string>
     <string name="menu_refresh">Refresh</string>
     <string name="menu_search">Search</string>
+    <string name="menu_setting">Setting</string>
     <string name="searchbar_hint">Masukkan kata</string>
 
     <string name="id">id test</string>
@@ -18,5 +19,6 @@
     <string name="favorites">Favorites</string>
     <string name="save_favorites">Favorites</string>
 
+    <string name="dark_mode">Dark Mode</string>
 
 </resources>

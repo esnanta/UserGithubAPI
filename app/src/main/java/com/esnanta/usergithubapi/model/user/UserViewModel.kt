@@ -48,7 +48,7 @@ class UserViewModel (application: Application): ViewModel() {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _userResponse.value = response.body()
-                    _isFavoriteExisted.value = mRepository.isFavoriteExisted(searchUser)
+                    //_isFavoriteExisted.value = mRepository.isFavoriteExisted(searchUser)
 
                     if (_userResponse.value==null) {
                         _snackBarText.value = Event("User not found")
