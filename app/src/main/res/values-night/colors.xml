@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_bar">#222831</color>
+    <color name="bg_profile">#222831</color>
+    <color name="circle_image">#EEEEEE</color>
+    <color name="item_detail">#31363F</color>
+    <color name="placeholder">#31363F</color>
+</resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="app_bar_light">#80BCBD</color>
+    <color name="app_bar">#80BCBD</color>
     <color name="bg_profile">#AAD9BB</color>
     <color name="circle_image">#FBF9F1</color>
     <color name="item_detail">#D5F0C1</color>
