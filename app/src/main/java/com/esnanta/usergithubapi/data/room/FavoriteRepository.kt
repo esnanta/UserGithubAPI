@@ -24,7 +24,7 @@ class FavoriteRepository(application: Application) {
 
     fun isFavoriteExisted(username: String): Boolean {
         val future = executorService.submit(Callable {
-            mFavoriteDao.isFavoriteExisted(username) 
+            mFavoriteDao.isFavoriteExisted(username)
         })
 
         return try {

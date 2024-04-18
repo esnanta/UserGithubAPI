@@ -79,6 +79,5 @@ class UserViewModel (application: Application): ViewModel() {
 
     fun getIsFavorite(username:String){
         _isFavoriteExisted.value = mRepository.isFavoriteExisted(username)
-        Log.d(ContentValues.TAG, "userviewmodel _isFavoriteExisted.value result : $_isFavoriteExisted.value")
     }
 }
