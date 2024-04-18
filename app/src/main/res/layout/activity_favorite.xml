@@ -11,16 +11,6 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.FavoriteActivity">
 
-        <TextView
-            android:id="@+id/tvUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            tools:text="Testing" />
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_favorite"
             android:layout_width="match_parent"
