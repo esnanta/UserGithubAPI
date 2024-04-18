@@ -3,7 +3,7 @@ package com.esnanta.usergithubapi.helper
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.esnanta.usergithubapi.model.favorite.FavoriteCRUDViewModel
+import com.esnanta.usergithubapi.model.favorite.FavoriteDetailViewModel
 import com.esnanta.usergithubapi.model.favorite.FavoriteListViewModel
 import com.esnanta.usergithubapi.model.user.UserViewModel
 
@@ -27,8 +27,8 @@ class ViewModelFactory private constructor(private val mApplication: Application
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FavoriteListViewModel::class.java)) {
             return FavoriteListViewModel(mApplication) as T
-        } else if (modelClass.isAssignableFrom(FavoriteCRUDViewModel::class.java)) {
-            return FavoriteCRUDViewModel(mApplication) as T
+        } else if (modelClass.isAssignableFrom(FavoriteDetailViewModel::class.java)) {
+            return FavoriteDetailViewModel(mApplication) as T
         } else if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
             return UserViewModel(mApplication) as T
         }

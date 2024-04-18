@@ -3,6 +3,7 @@
     <string name="menu_refresh">Refresh</string>
     <string name="menu_search">Search</string>
     <string name="menu_setting">Setting</string>
+    <string name="menu_favorite">Favorite</string>
     <string name="searchbar_hint">Masukkan kata</string>
 
     <string name="id">id test</string>

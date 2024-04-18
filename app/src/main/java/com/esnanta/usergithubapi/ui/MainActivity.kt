@@ -115,6 +115,12 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
                     startActivity(intent)
                     true
                 }
+                R.id.favorite_menu -> {
+                    showLoading(true)
+                    val intent = Intent(this, FavoriteActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.setting_menu -> {
                     showLoading(true)
                     val intent = Intent(this, SwitchActivity::class.java)
