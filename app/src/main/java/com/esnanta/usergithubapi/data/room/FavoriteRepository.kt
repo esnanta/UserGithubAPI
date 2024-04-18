@@ -14,7 +14,7 @@ class FavoriteRepository(application: Application) {
         val db = FavoriteRoomDatabase.getInstance(application)
         mFavoriteDao = db.favoriteDao()
     }
-    fun getAllFavorites(): LiveData<List<Favorite>> = mFavoriteDao.getAllFavorites()
+    fun getAllFavorites() = mFavoriteDao.getAllFavorites()
     fun insert(favorite: Favorite) {
         executorService.execute { mFavoriteDao.insert(favorite) }
     }
