@@ -22,7 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class ItemDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityItemDetailBinding
-    private lateinit var viewModel: UserViewModel
+    private lateinit var userViewModel: UserViewModel
 
     companion object {
         @StringRes
@@ -37,7 +37,7 @@ class ItemDetailActivity : AppCompatActivity() {
         binding = ActivityItemDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = obtainViewModelFactory(this@ItemDetailActivity)
+        userViewModel = obtainViewModelFactory(this@ItemDetailActivity)
         val loginUser = intent.getStringExtra("EXTRA_LOGIN_USER")
 
         if (loginUser != null) {
@@ -58,9 +58,9 @@ class ItemDetailActivity : AppCompatActivity() {
 
     private fun loadViewModel(loginUser : String) {
 
-        viewModel.findUser(loginUser)
+        userViewModel.findUser(loginUser)
 
-        viewModel.userResponse.observe(this) { user ->
+        userViewModel.userResponse.observe(this) { user ->
             binding.profileName.text = user.name ?: "-NULL-"
             binding.profileLogin.text = "(" + user.login + ")"
             binding.profileFollower.text = resources.getString(R.string.followers) + " " + user.followers!!
@@ -70,17 +70,19 @@ class ItemDetailActivity : AppCompatActivity() {
                 .load(user.avatarUrl)
                 .into(binding.profileImage)
 
+            user.login?.let { userViewModel.getIsFavorite(it) }
+
         }
 
-        viewModel.isFavoriteExisted.observe(this) {
+        userViewModel.isFavoriteExisted.observe(this) {
             updateFabButton(it)
         }
 
-        viewModel.isLoading.observe(this) {
+        userViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
-        viewModel.snackBarText.observe(this){
+        userViewModel.snackBarText.observe(this){
             it.getContentIfNotHandled()?.let { snackBarText ->
                 Snackbar.make(
                     window.decorView.rootView, snackBarText,Snackbar.LENGTH_SHORT
@@ -106,20 +108,20 @@ class ItemDetailActivity : AppCompatActivity() {
         val fabFavorites = binding.fabFavorites
         val favorite = Favorite()
         favorite.let { favorite ->
-            favorite?.username = viewModel.userResponse.value?.login.toString()
-            favorite?.avatarUrl = viewModel.userResponse.value?.avatarUrl
+            favorite?.username = userViewModel.userResponse.value?.login.toString()
+            favorite?.avatarUrl = userViewModel.userResponse.value?.avatarUrl
         }
 
         if (isFavorite) {
             fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24))
             fabFavorites.setOnClickListener {
-                viewModel.deleteFavorites(favorite)
+                userViewModel.deleteFavorites(favorite)
             }
         }
         else{
             fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_border_24))
             fabFavorites.setOnClickListener {
-                viewModel.addNewFavorites(favorite)
+                userViewModel.addNewFavorites(favorite)
             }
         }
     }

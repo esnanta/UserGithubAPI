@@ -25,7 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), IUserItemClickListener {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: SearchViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
 
     private fun loadViewModel() {
         var adapter: SearchAdapter
-        viewModel.listUser.observe(this) { listUserItem ->
+        searchViewModel.listUser.observe(this) { listUserItem ->
             listUserItem?.let {
                 adapter = SearchAdapter(listUserItem)
                 adapter.setOnItemClickListener(this)
@@ -70,12 +70,12 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
                 binding.userRecyclerView.setHasFixedSize(true)
             }
         }
-
-        viewModel.isLoading.observe(this) {
+        
+        searchViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
-        viewModel.snackBarText.observe(this){
+        searchViewModel.snackBarText.observe(this){
             it.getContentIfNotHandled()?.let { snackBarText ->
                 Snackbar.make(
                     window.decorView.rootView, snackBarText,Snackbar.LENGTH_SHORT
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
                         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                             override fun onQueryTextSubmit(query: String?): Boolean {
                                 if (query != null) {
-                                    viewModel.findUser(query)
+                                    searchViewModel.findUser(query)
                                 }
                                 showSearchView(false)
                                 return false

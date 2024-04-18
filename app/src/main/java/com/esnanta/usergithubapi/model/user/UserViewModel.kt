@@ -6,12 +6,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.esnanta.usergithubapi.data.response.UserResponse
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig
 import com.esnanta.usergithubapi.data.room.Favorite
 import com.esnanta.usergithubapi.data.room.FavoriteRepository
 import com.esnanta.usergithubapi.ui.ItemDetailActivity
 import com.esnanta.usergithubapi.utils.Event
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,7 +50,6 @@ class UserViewModel (application: Application): ViewModel() {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _userResponse.value = response.body()
-                    //_isFavoriteExisted.value = mRepository.isFavoriteExisted(searchUser)
 
                     if (_userResponse.value==null) {
                         _snackBarText.value = Event("User not found")
@@ -76,8 +77,8 @@ class UserViewModel (application: Application): ViewModel() {
         _isFavoriteExisted.value = false
     }
 
-    suspend fun getIsFavorite(username:String){
+    fun getIsFavorite(username:String){
         _isFavoriteExisted.value = mRepository.isFavoriteExisted(username)
-        Log.d(ContentValues.TAG, "_isFavoriteExisted.value result : $_isFavoriteExisted.value")
+        Log.d(ContentValues.TAG, "userviewmodel _isFavoriteExisted.value result : $_isFavoriteExisted.value")
     }
 }
