@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.esnanta.usergithubapi.R
 import com.esnanta.usergithubapi.data.room.Favorite
 import com.esnanta.usergithubapi.databinding.FragmentFavoriteBinding
 import com.esnanta.usergithubapi.helper.ViewModelFactory
@@ -72,11 +73,14 @@ class FavoriteFragment : Fragment(), IFavoriteItemClickListener {
     }
 
     override fun onFavoriteItemClick(favorite: Favorite) {
-        val toastMessage = "Item Clicked: ${favorite.username}"
-        Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show()
-        //var intent = Intent(this, ItemDetailActivity::class.java)
-        //intent.putExtra("EXTRA_LOGIN_USER", favorite.username)
-        //startActivity(intent)
+        val username = favorite.username
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val favoriteDetailFragment = FavoriteDetailFragment.newInstance(username)
+
+        fragmentTransaction.replace(R.id.fragment_container, favoriteDetailFragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     private fun showLoading(isLoading: Boolean) {

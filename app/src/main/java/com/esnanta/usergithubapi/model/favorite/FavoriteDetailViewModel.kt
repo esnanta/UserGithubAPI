@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.esnanta.usergithubapi.data.room.Favorite
 import com.esnanta.usergithubapi.data.room.FavoriteRepository
 
-class FavoriteDetailViewModel(application: Application): ViewModel() {
+class FavoriteDetailViewModel(application: Application) : ViewModel() {
     private val mRepository: FavoriteRepository = FavoriteRepository(application)
 
     fun insert(note: Favorite) {
