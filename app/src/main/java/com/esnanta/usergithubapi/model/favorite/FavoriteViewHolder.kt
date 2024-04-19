@@ -1,7 +1,5 @@
 package com.esnanta.usergithubapi.model.favorite
 
-import android.content.Intent
-import android.net.Uri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
