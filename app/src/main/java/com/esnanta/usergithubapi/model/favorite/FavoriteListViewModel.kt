@@ -8,5 +8,5 @@ import com.esnanta.usergithubapi.data.room.FavoriteRepository
 
 class FavoriteListViewModel (application: Application) : ViewModel() {
     private val mRepository: FavoriteRepository = FavoriteRepository(application)
-    fun getAllFavorites() = mRepository.getAllFavorites()
+    fun getAllFavorites(): LiveData<List<Favorite>> = mRepository.getAllFavorites()
 }

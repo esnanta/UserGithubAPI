@@ -14,36 +14,27 @@ import com.esnanta.usergithubapi.R
 import com.esnanta.usergithubapi.data.room.Favorite
 import com.esnanta.usergithubapi.databinding.ItemFavoriteBinding
 
-class FavoriteAdapter(private val onFavoriteClick: (Favorite) -> Unit) :
-    ListAdapter<Favorite, FavoriteViewHolder>(DIFF_CALLBACK) {
+class FavoriteAdapter : RecyclerView.Adapter<FavoriteViewHolder>() {
+    private val listData = ArrayList<Favorite>()
+    fun setListFavorite(listData: List<Favorite>) {
+        val diffCallback = FavoriteDiffCallback(this.listData, listData)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        this.listData.clear()
+        this.listData.addAll(listData)
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val binding = ItemFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FavoriteViewHolder(binding)
     }
 
+    override fun getItemCount(): Int {
+        return listData.size
+    }
+
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        val favorite = getItem(position)
-        holder.bind(favorite)
-
-        //val ivFavorite = holder.binding.ivFavorite
-
-//        ivFavorite.setOnClickListener {
-//            onFavoriteClick(favorite)
-//        }
+        holder.bind(listData[position])
     }
 
-    companion object {
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<Favorite> =
-            object : DiffUtil.ItemCallback<Favorite>() {
-                override fun areItemsTheSame(oldItem: Favorite, newItem: Favorite): Boolean {
-                    return oldItem.username == newItem.username
-                }
-
-                @SuppressLint("DiffUtilEquals")
-                override fun areContentsTheSame(oldItem: Favorite, newItem: Favorite): Boolean {
-                    return oldItem == newItem
-                }
-            }
-    }
 }

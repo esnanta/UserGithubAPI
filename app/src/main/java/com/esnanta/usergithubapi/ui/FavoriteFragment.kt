@@ -19,6 +19,8 @@ import com.esnanta.usergithubapi.data.Result
 
 class FavoriteFragment : Fragment() {
     private lateinit var favoriteListViewModel: FavoriteListViewModel
+    private lateinit var adapter: FavoriteAdapter
+
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
@@ -36,17 +38,13 @@ class FavoriteFragment : Fragment() {
         val activity = requireActivity() as AppCompatActivity
         favoriteListViewModel = obtainViewModel(activity)
 
-        val favoriteAdapter = FavoriteAdapter {
-            favoriteListViewModel.getAllFavorites()
+        favoriteListViewModel.getAllFavorites().observe(viewLifecycleOwner) { dataList ->
+            if (dataList != null) {
+                adapter = FavoriteAdapter()
+                adapter.setListFavorite(dataList)
+                binding.recyclerView.adapter = adapter
+            }
         }
-
-//        mainViewModel.getAllNotes().observe(this) { noteList ->
-//            if (noteList != null) {
-//                adapter.setListNotes(noteList)
-//            }
-//        }
-
-
 
 
 
@@ -57,6 +55,11 @@ class FavoriteFragment : Fragment() {
         binding.recyclerView.setLayoutManager(layoutManager)
         val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
         binding.recyclerView.addItemDecoration(itemDecoration)
+
+//        binding?.fabAdd?.setOnClickListener {
+//            val intent = Intent(this@MainActivity, NoteAddUpdateActivity::class.java)
+//            startActivity(intent)
+//        }
 
     }
 

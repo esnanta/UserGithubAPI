@@ -2,7 +2,6 @@ package com.esnanta.usergithubapi.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.esnanta.usergithubapi.R
 import com.esnanta.usergithubapi.databinding.ActivityFavoriteBinding
 class FavoriteActivity : AppCompatActivity() {
 
