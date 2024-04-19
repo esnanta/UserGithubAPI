@@ -20,10 +20,6 @@ class FavoriteActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     companion object {
         const val EXTRA_NOTE = "extra_note"
         const val ALERT_DIALOG_CLOSE = 10
