@@ -40,36 +40,15 @@ class FavoriteFragment : Fragment() {
             favoriteListViewModel.getAllFavorites()
         }
 
-        favoriteListViewModel.getAllFavorites().observe(viewLifecycleOwner) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> {
-                        binding?.progressBar?.visibility = View.VISIBLE
-                    }
+//        mainViewModel.getAllNotes().observe(this) { noteList ->
+//            if (noteList != null) {
+//                adapter.setListNotes(noteList)
+//            }
+//        }
 
-                    is Result.Success -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        val newsData = result.data
-                        favoriteAdapter.submitList(newsData)
-                    }
 
-                    is Result.Error -> {
-                        binding?.progressBar?.visibility = View.GONE
-                        Toast.makeText(
-                            context,
-                            "Terjadi kesalahan" + result.error,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
-        }
 
-        binding?.recyclerView?.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = favoriteAdapter
-        }
+
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.setHasFixedSize(true)

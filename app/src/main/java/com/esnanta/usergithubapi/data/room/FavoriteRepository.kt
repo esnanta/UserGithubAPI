@@ -1,7 +1,6 @@
 package com.esnanta.usergithubapi.data.room
 
 import android.app.Application
-import androidx.lifecycle.LiveData
 import java.util.concurrent.Callable
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -23,12 +22,12 @@ class FavoriteRepository(application: Application) {
     }
 
     fun isFavoriteExisted(username: String): Boolean {
-        val future = executorService.submit(Callable {
+        val isFavorite = executorService.submit(Callable {
             mFavoriteDao.isFavoriteExisted(username)
         })
 
         return try {
-            future.get()
+            isFavorite.get()
         } catch (e: Exception) {
             e.printStackTrace()
             false
