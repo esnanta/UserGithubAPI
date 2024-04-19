@@ -7,8 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.esnanta.usergithubapi.data.room.Favorite
 import com.esnanta.usergithubapi.databinding.ItemFavoriteBinding
 
-class FavoriteAdapter : RecyclerView.Adapter<FavoriteViewHolder>() {
+class FavoriteAdapter(
+    private val favoriteListViewModel: FavoriteListViewModel)
+        : RecyclerView.Adapter<FavoriteViewHolder>() {
+
     private val listData = ArrayList<Favorite>()
+    private lateinit var clickListener: IFavoriteItemClickListener
+
     fun setListFavorite(listData: List<Favorite>) {
         val diffCallback = FavoriteDiffCallback(this.listData, listData)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
@@ -27,7 +32,14 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        holder.bind(listData[position])
+        val favorite : Favorite = favoriteListViewModel.getFavoriteUserByUsername(listData[position].username)
+        holder.binding.root.setOnClickListener {
+            clickListener.onFavoriteItemClick(favorite)
+        }
+        return holder.bind(favorite)
     }
 
+    fun setOnItemClickListener(listener: IFavoriteItemClickListener) {
+        clickListener = listener
+    }
 }

@@ -32,15 +32,15 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loadViewModel();
-
         val layoutManager = LinearLayoutManager(this)
         binding.userRecyclerView.setLayoutManager(layoutManager)
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.userRecyclerView.addItemDecoration(itemDecoration)
 
+        loadViewModel();
         setUpTopAppBar()
         showSearchView(false)
+        showLoading(false)
 
         val pref = SettingPreferences.getInstance(application.dataStore)
         val mainViewModel = ViewModelProvider(
@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity(), IUserItemClickListener {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showLoading(false)
     }
 
     private fun loadViewModel() {

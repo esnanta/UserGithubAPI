@@ -1,6 +1,7 @@
 package com.esnanta.usergithubapi.data.room
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import java.util.concurrent.Callable
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -13,7 +14,23 @@ class FavoriteRepository(application: Application) {
         val db = FavoriteRoomDatabase.getInstance(application)
         mFavoriteDao = db.favoriteDao()
     }
-    fun getAllFavorites() = mFavoriteDao.getAllFavorites()
+
+    fun getAllFavorites(): LiveData<List<Favorite>>? {
+        val listFavorite = executorService.submit(Callable {
+            mFavoriteDao.getAllFavorites()
+        })
+
+        return listFavorite.get()
+    }
+
+    fun getFavoriteUserByUsername(username:String): Favorite {
+        val favorite = executorService.submit(Callable {
+            mFavoriteDao.getFavoriteUserByUsername(username)
+        })
+
+        return favorite.get()
+    }
+
     fun insert(favorite: Favorite) {
         executorService.execute { mFavoriteDao.insert(favorite) }
     }

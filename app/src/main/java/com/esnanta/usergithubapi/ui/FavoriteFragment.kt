@@ -4,17 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.esnanta.usergithubapi.data.room.Favorite
 import com.esnanta.usergithubapi.databinding.FragmentFavoriteBinding
 import com.esnanta.usergithubapi.helper.ViewModelFactory
 import com.esnanta.usergithubapi.model.favorite.FavoriteAdapter
 import com.esnanta.usergithubapi.model.favorite.FavoriteListViewModel
+import com.esnanta.usergithubapi.model.favorite.IFavoriteItemClickListener
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : Fragment(), IFavoriteItemClickListener {
     private lateinit var favoriteListViewModel: FavoriteListViewModel
     private lateinit var adapter: FavoriteAdapter
 
@@ -31,18 +34,6 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val activity = requireActivity() as AppCompatActivity
-        favoriteListViewModel = obtainViewModel(activity)
-
-        favoriteListViewModel.getAllFavorites().observe(viewLifecycleOwner) { dataList ->
-            if (dataList != null) {
-                adapter = FavoriteAdapter()
-                adapter.setListFavorite(dataList)
-                binding.recyclerView.adapter = adapter
-            }
-        }
-        
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.setHasFixedSize(true)
 
@@ -51,11 +42,23 @@ class FavoriteFragment : Fragment() {
         val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
         binding.recyclerView.addItemDecoration(itemDecoration)
 
-//        binding?.fabAdd?.setOnClickListener {
-//            val intent = Intent(this@MainActivity, NoteAddUpdateActivity::class.java)
-//            startActivity(intent)
-//        }
+        val activity = requireActivity() as AppCompatActivity
+        favoriteListViewModel = obtainViewModel(activity)
 
+        favoriteListViewModel.getAllFavorites()?.observe(viewLifecycleOwner) { dataList ->
+            if (dataList != null) {
+                showLoading(true)
+                adapter = FavoriteAdapter(favoriteListViewModel)
+                adapter.setListFavorite(dataList)
+                adapter.setOnItemClickListener(this)
+                binding.recyclerView.adapter = adapter
+                showLoading(false)
+            }
+        }
+
+        favoriteListViewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): FavoriteListViewModel {
@@ -66,5 +69,21 @@ class FavoriteFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onFavoriteItemClick(favorite: Favorite) {
+        val toastMessage = "Item Clicked: ${favorite.username}"
+        Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show()
+        //var intent = Intent(this, ItemDetailActivity::class.java)
+        //intent.putExtra("EXTRA_LOGIN_USER", favorite.username)
+        //startActivity(intent)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBarFavorite.visibility = View.VISIBLE
+        } else {
+            binding.progressBarFavorite.visibility = View.GONE
+        }
     }
 }

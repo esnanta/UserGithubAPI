@@ -1,19 +1,16 @@
 package com.esnanta.usergithubapi.model.user
 
 import android.app.Application
-import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.esnanta.usergithubapi.data.response.UserResponse
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig
 import com.esnanta.usergithubapi.data.room.Favorite
 import com.esnanta.usergithubapi.data.room.FavoriteRepository
 import com.esnanta.usergithubapi.ui.ItemDetailActivity
 import com.esnanta.usergithubapi.utils.Event
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
