@@ -1,5 +1,6 @@
 package com.esnanta.usergithubapi.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -73,13 +74,17 @@ class FavoriteFragment : Fragment(), IFavoriteItemClickListener {
 
     override fun onFavoriteItemClick(favorite: Favorite) {
         val username = favorite.username
-        val fragmentManager = requireActivity().supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        val favoriteDetailFragment = FavoriteDetailFragment.newInstance(username,1)
+//        val fragmentManager = requireActivity().supportFragmentManager
+//        val fragmentTransaction = fragmentManager.beginTransaction()
+//        val favoriteDetailFragment = FavoriteDetailFragment.newInstance(username,1)
+//
+//        fragmentTransaction.replace(R.id.fragment_container, favoriteDetailFragment)
+//        fragmentTransaction.addToBackStack(null)
+//        fragmentTransaction.commit()
 
-        fragmentTransaction.replace(R.id.fragment_container, favoriteDetailFragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
+        var intent = Intent(requireContext(), FavoriteDetailActivity::class.java)
+        intent.putExtra("EXTRA_USERNAME", username)
+        startActivity(intent)
     }
 
     private fun showLoading(isLoading: Boolean) {

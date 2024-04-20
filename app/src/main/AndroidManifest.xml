@@ -21,6 +21,9 @@
             android:name=".ui.FavoriteActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.FavoriteDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ItemDetailActivity"
             android:exported="false" />
         <activity

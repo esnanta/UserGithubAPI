@@ -7,21 +7,18 @@ import com.esnanta.usergithubapi.ui.FavoriteDetailFragment
 import com.esnanta.usergithubapi.ui.ProfileFragment
 
 class SectionsPagerAdapter(activity: AppCompatActivity,
-                           private val fragmentClass: Class<out Fragment>,
+                           private val fragments: List<Fragment>,
                            private var loginUser: String)
     : FragmentStateAdapter(activity) {
 
-    override fun getItemCount(): Int {
-        return 2
-    }
+    override fun getItemCount(): Int = fragments.size
 
     override fun createFragment(position: Int): Fragment {
-        val fragment = fragmentClass.getDeclaredConstructor().newInstance()
+        val fragment = fragments[position]
         if (fragment is ProfileFragment) {
             return ProfileFragment.newInstance(loginUser, position + 1)
         } else {
-            return fragment
+            return FavoriteDetailFragment.newInstance(loginUser, position + 1)
         }
     }
-
 }

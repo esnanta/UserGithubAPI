@@ -6,24 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
-import com.esnanta.usergithubapi.R
-import com.esnanta.usergithubapi.databinding.FragmentFavoriteBinding
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.esnanta.usergithubapi.databinding.FragmentFavoriteDetailBinding
-import com.esnanta.usergithubapi.helper.ViewModelFactory
-import com.esnanta.usergithubapi.model.SectionsPagerAdapter
-import com.esnanta.usergithubapi.model.favorite.FavoriteDetailViewModel
-import com.esnanta.usergithubapi.model.favorite.FavoriteListViewModel
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+import com.esnanta.usergithubapi.model.follower.FollowerAdapter
+import com.esnanta.usergithubapi.model.follower.FollowerViewModel
+import com.esnanta.usergithubapi.model.following.FollowingAdapter
+import com.esnanta.usergithubapi.model.following.FollowingViewModel
 
 class FavoriteDetailFragment : Fragment() {
 
-    private lateinit var mFavoriteDetailViewModel: FavoriteDetailViewModel
     private var _binding: FragmentFavoriteDetailBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -36,42 +28,77 @@ class FavoriteDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val arguments = requireArguments()
-        val username = arguments.getString(ARG_USERNAME)
-        showUsernameToast(username)
 
-        val activity = requireActivity() as AppCompatActivity
-        mFavoriteDetailViewModel = obtainViewModel(activity)
-
-        val sectionsPagerAdapter = username?.let {
-            SectionsPagerAdapter(activity,FavoriteDetailFragment::class.java, it)
+        val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
+        if(index==1){
+            arguments?.getString(ARG_USERNAME)?.let { loadViewModelFollower(it) }
+        }else{
+            arguments?.getString(ARG_USERNAME)?.let { loadViewModelFollowing(it) }
         }
-        val viewPager: ViewPager2 = binding.viewPager
-        viewPager.adapter = sectionsPagerAdapter
 
-        val tabs: TabLayout = binding.tabs
-        TabLayoutMediator(tabs, viewPager) { tab, position ->
-            tab.text = resources.getString(TAB_TITLES[position])
-        }.attach()
-        activity.supportActionBar?.elevation = 0f
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.setHasFixedSize(true)
 
-    }
-    private fun showUsernameToast(username: String?) {
-        if (username != null) {
-            val toastMessage = "Username: $username"
-            Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show()
-        }
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.setLayoutManager(layoutManager)
+        val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
+        binding.recyclerView.addItemDecoration(itemDecoration)
     }
 
-    private fun obtainViewModel(activity: AppCompatActivity): FavoriteDetailViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory)[FavoriteDetailViewModel::class.java]
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding  = null
+    }
+
+    private fun loadViewModelFollower(loginUser : String) {
+
+        val viewModel : FollowerViewModel by viewModels()
+        var adapterFollower: FollowerAdapter?
+
+        viewModel.findFollower(loginUser)
+
+        viewModel.listFollower.observe(viewLifecycleOwner) { listFollowerItem ->
+            listFollowerItem?.let {
+                adapterFollower = FollowerAdapter(listFollowerItem)
+                adapterFollower?.updateList(it)
+                binding.recyclerView.adapter = adapterFollower
+            }
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+    }
+
+    private fun loadViewModelFollowing(loginUser : String) {
+        val viewModel : FollowingViewModel by viewModels()
+        var adapterFollowing: FollowingAdapter?
+
+        viewModel.findFollowing(loginUser)
+
+        viewModel.listFollowing.observe(viewLifecycleOwner) { listFollowingItem ->
+            listFollowingItem?.let {
+                adapterFollowing = FollowingAdapter(listFollowingItem)
+                adapterFollowing?.updateList(it)
+                binding.recyclerView.adapter = adapterFollowing
+            }
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+    }
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     companion object {
         const val ARG_SECTION_NUMBER = "section_number"
         const val ARG_USERNAME = "username"
-
         fun newInstance(username: String, sectionNumber: Int): FavoriteDetailFragment {
             val fragment = FavoriteDetailFragment()
             val args = Bundle().apply {
@@ -81,11 +108,5 @@ class FavoriteDetailFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
-
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_follower,
-            R.string.tab_following
-        )
     }
 }

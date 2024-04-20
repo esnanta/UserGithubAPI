@@ -10,36 +10,34 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.esnanta.usergithubapi.R
 import com.esnanta.usergithubapi.data.room.Favorite
-import com.esnanta.usergithubapi.model.SectionsPagerAdapter
-import com.esnanta.usergithubapi.databinding.ActivityItemDetailBinding
+import com.esnanta.usergithubapi.databinding.ActivityFavoriteDetailBinding
 import com.esnanta.usergithubapi.helper.ViewModelFactory
-import com.esnanta.usergithubapi.model.user.UserViewModel
+import com.esnanta.usergithubapi.model.SectionsPagerAdapter
+import com.esnanta.usergithubapi.model.favorite.FavoriteDetailViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-
-class ItemDetailActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityItemDetailBinding
-    private lateinit var userViewModel: UserViewModel
+class FavoriteDetailActivity : AppCompatActivity() {
+    private lateinit var mFavoriteDetailViewModel: FavoriteDetailViewModel
+    private lateinit var binding : ActivityFavoriteDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityItemDetailBinding.inflate(layoutInflater)
+        binding = ActivityFavoriteDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userViewModel = obtainViewModelFactory(this@ItemDetailActivity)
-        val loginUser = intent.getStringExtra("EXTRA_LOGIN_USER")
+        mFavoriteDetailViewModel = obtainViewModelFactory(this@FavoriteDetailActivity)
+        val username = intent.getStringExtra("EXTRA_USERNAME")
 
-        if (loginUser != null) {
-            loadViewModel(loginUser)
+        if (username != null) {
+            loadViewModel(username)
         }
 
-        val sectionsPagerAdapter = loginUser?.let {
+        val sectionsPagerAdapter = username?.let {
             val fragmentList = listOf(
-                ProfileFragment.newInstance(loginUser, 1), // Assuming ProfileFragment takes username
-                ProfileFragment.newInstance(loginUser, 2)
+                FavoriteDetailFragment.newInstance(username, 1),
+                FavoriteDetailFragment.newInstance(username, 2)
             )
 
             SectionsPagerAdapter(this,fragmentList, it)
@@ -52,14 +50,13 @@ class ItemDetailActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
         supportActionBar?.elevation = 0f
-
     }
 
     private fun loadViewModel(loginUser : String) {
 
-        userViewModel.findUser(loginUser)
+        mFavoriteDetailViewModel.findUser(loginUser)
 
-        userViewModel.userResponse.observe(this) { user ->
+        mFavoriteDetailViewModel.userResponse.observe(this) { user ->
             binding.profileName.text = user.name ?: "-NULL-"
             binding.profileLogin.text = "(" + user.login + ")"
             binding.profileFollower.text = resources.getString(R.string.followers) + " " + user.followers!!
@@ -69,27 +66,48 @@ class ItemDetailActivity : AppCompatActivity() {
                 .load(user.avatarUrl)
                 .into(binding.profileImage)
 
-            user.login?.let { userViewModel.getIsFavorite(it) }
+            user.login?.let { mFavoriteDetailViewModel.getIsFavorite(it) }
 
         }
 
-        userViewModel.isFavoriteExisted.observe(this) {
+        mFavoriteDetailViewModel.isFavoriteExisted.observe(this) {
             updateFabButton(it)
         }
 
-        userViewModel.isLoading.observe(this) {
+        mFavoriteDetailViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
-        userViewModel.snackBarText.observe(this){
+        mFavoriteDetailViewModel.snackBarText.observe(this){
             it.getContentIfNotHandled()?.let { snackBarText ->
                 Snackbar.make(
-                    window.decorView.rootView, snackBarText,Snackbar.LENGTH_SHORT
+                    window.decorView.rootView, snackBarText, Snackbar.LENGTH_SHORT
                 ).show()
             }
         }
     }
 
+    private fun updateFabButton(isFavorite: Boolean) {
+        val fabFavorites = binding.fabFavorites
+        val favorite = Favorite()
+        favorite.let { favorite ->
+            favorite?.username = mFavoriteDetailViewModel.userResponse.value?.login.toString()
+            favorite?.avatarUrl = mFavoriteDetailViewModel.userResponse.value?.avatarUrl
+        }
+
+        if (isFavorite) {
+            fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24))
+            fabFavorites.setOnClickListener {
+                mFavoriteDetailViewModel.deleteFavorites(favorite)
+            }
+        }
+        else{
+            fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_border_24))
+            fabFavorites.setOnClickListener {
+                mFavoriteDetailViewModel.addNewFavorites(favorite)
+            }
+        }
+    }
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
@@ -97,32 +115,9 @@ class ItemDetailActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.GONE
         }
     }
-
-    private fun obtainViewModelFactory(activity: AppCompatActivity): UserViewModel {
+    private fun obtainViewModelFactory(activity: AppCompatActivity): FavoriteDetailViewModel {
         val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory)[UserViewModel::class.java]
-    }
-
-    private fun updateFabButton(isFavorite: Boolean) {
-        val fabFavorites = binding.fabFavorites
-        val favorite = Favorite()
-        favorite.let { favorite ->
-            favorite?.username = userViewModel.userResponse.value?.login.toString()
-            favorite?.avatarUrl = userViewModel.userResponse.value?.avatarUrl
-        }
-
-        if (isFavorite) {
-            fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24))
-            fabFavorites.setOnClickListener {
-                userViewModel.deleteFavorites(favorite)
-            }
-        }
-        else{
-            fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_border_24))
-            fabFavorites.setOnClickListener {
-                userViewModel.addNewFavorites(favorite)
-            }
-        }
+        return ViewModelProvider(activity, factory)[FavoriteDetailViewModel::class.java]
     }
 
     companion object {

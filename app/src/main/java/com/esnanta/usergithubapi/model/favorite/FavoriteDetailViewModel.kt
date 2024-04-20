@@ -29,13 +29,8 @@ class FavoriteDetailViewModel(application: Application) : ViewModel() {
     private val _snackBarText = MutableLiveData<Event<String>>()
     val snackBarText: LiveData<Event<String>> = _snackBarText
 
-    fun insert(note: Favorite) {
-        mRepository.insert(note)
-    }
-
-    fun delete(note: Favorite) {
-        mRepository.delete(note)
-    }
+    private val _isFavoriteExisted = MutableLiveData(false)
+    val isFavoriteExisted: LiveData<Boolean> = _isFavoriteExisted
 
     fun findUser(searchUser:String) {
         _isLoading.value = true
@@ -66,6 +61,19 @@ class FavoriteDetailViewModel(application: Application) : ViewModel() {
         })
     }
 
+    fun addNewFavorites(favorite:Favorite){
+        mRepository.insert(favorite)
+        _isFavoriteExisted.value = true
+    }
+
+    fun deleteFavorites(favorite:Favorite){
+        mRepository.delete(favorite)
+        _isFavoriteExisted.value = false
+    }
+
+    fun getIsFavorite(username:String){
+        _isFavoriteExisted.value = mRepository.isFavoriteExisted(username)
+    }
     companion object {
         private val TAG = FavoriteDetailFragment::class.java.simpleName
     }

@@ -96,6 +96,7 @@ class ProfileFragment : Fragment() {
         super.onDestroyView()
         _binding  = null
     }
+
     companion object {
 
         const val ARG_SECTION_NUMBER = "section_number"
