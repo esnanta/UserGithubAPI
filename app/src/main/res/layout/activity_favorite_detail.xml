@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="dataItem" type="com.esnanta.usergithubapi.data.response.UserResponse" />
+        <variable name="dataAPI" type="com.esnanta.usergithubapi.data.response.UserResponse" />
+        <variable name="dataDb" type="com.esnanta.usergithubapi.data.room.Favorite" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -37,7 +38,7 @@
                         android:layout_height="100dp"
                         app:civ_border_width="2dp"
                         app:civ_border_color="@color/circle_image"
-                        app:imageUrl="@{dataItem.avatarUrl}"/>
+                        app:imageUrl="@{dataDb.avatarUrl}"/>
 
                     <TextView
                         android:id="@+id/profile_name"
@@ -46,7 +47,7 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginTop="8dp"
-                        tools:text="@{dataItem.name}"/>
+                        tools:text="@{dataDb.username}"/>
 
                     <TextView
                         android:id="@+id/profile_login"
@@ -55,7 +56,7 @@
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"
-                        tools:text="@{dataItem.login}"/>
+                        tools:text="Database Data"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -72,7 +73,7 @@
                             android:padding="2dp"
                             android:textStyle="bold"
                             android:textColor="?android:attr/textColorPrimary"
-                            tools:text="@{Integer.toString(dataItem.followers)}"/>
+                            tools:text="@{Integer.toString(dataAPI.followers)}"/>
 
                         <TextView
                             android:id="@+id/profile_following"
@@ -83,7 +84,7 @@
                             android:padding="2dp"
                             android:textStyle="bold"
                             android:textColor="?android:attr/textColorPrimary"
-                            tools:text="@{Integer.toString(dataItem.following)}"/>
+                            tools:text="@{Integer.toString(dataAPI.following)}"/>
 
                     </LinearLayout>
 

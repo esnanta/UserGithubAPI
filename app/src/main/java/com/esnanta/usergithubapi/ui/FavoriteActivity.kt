@@ -3,6 +3,7 @@ package com.esnanta.usergithubapi.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -29,10 +30,24 @@ class FavoriteActivity : AppCompatActivity(), IFavoriteItemClickListener {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.recyclerView.addItemDecoration(itemDecoration)
 
-        favoriteListViewModel = obtainViewModel(this)
+        loadViewModel()
+    }
 
-        favoriteListViewModel.getAllFavorites()?.observe(this) { dataList ->
-            if (dataList != null) {
+    override fun onResume() {
+        super.onResume()
+        favoriteListViewModel.getAllFavorites()
+    }
+
+    private fun loadViewModel(){
+        favoriteListViewModel = obtainViewModel(this)
+        favoriteListViewModel.getAllFavorites()
+
+        favoriteListViewModel.listFavorite?.observe(this) { dataList ->
+            if (dataList.isEmpty()) {
+                val toast = Toast.makeText(this, "Database is empty", Toast.LENGTH_SHORT)
+                toast.show()
+            }
+            else{
                 showLoading(true)
                 adapter = FavoriteAdapter(favoriteListViewModel)
                 adapter.setListFavorite(dataList)

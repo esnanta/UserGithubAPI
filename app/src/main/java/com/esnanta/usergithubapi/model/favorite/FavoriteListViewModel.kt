@@ -10,11 +10,14 @@ import com.esnanta.usergithubapi.data.room.FavoriteRepository
 class FavoriteListViewModel (application: Application) : ViewModel() {
     private val mRepository: FavoriteRepository = FavoriteRepository(application)
 
+    private var _listFavorite = MutableLiveData<List<Favorite>>()
+    var listFavorite: LiveData<List<Favorite>>? = _listFavorite
+
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun getAllFavorites(): LiveData<List<Favorite>>? {
-        return mRepository.getAllFavorites()
+    fun getAllFavorites() {
+        listFavorite = mRepository.getAllFavorites()
     }
 
     fun getFavoriteUserByUsername(username: String): Favorite {

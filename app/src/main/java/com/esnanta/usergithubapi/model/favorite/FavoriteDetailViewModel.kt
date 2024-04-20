@@ -9,9 +9,7 @@ import com.esnanta.usergithubapi.data.response.UserResponse
 import com.esnanta.usergithubapi.data.retrofit.ApiConfig
 import com.esnanta.usergithubapi.data.room.Favorite
 import com.esnanta.usergithubapi.data.room.FavoriteRepository
-import com.esnanta.usergithubapi.model.user.UserViewModel
 import com.esnanta.usergithubapi.ui.FavoriteDetailFragment
-import com.esnanta.usergithubapi.ui.ItemDetailActivity
 import com.esnanta.usergithubapi.utils.Event
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,6 +29,9 @@ class FavoriteDetailViewModel(application: Application) : ViewModel() {
 
     private val _isFavoriteExisted = MutableLiveData(false)
     val isFavoriteExisted: LiveData<Boolean> = _isFavoriteExisted
+
+    private val _favorite = MutableLiveData<Favorite>()
+    val favorite: LiveData<Favorite> = _favorite
 
     fun findUser(searchUser:String) {
         _isLoading.value = true
@@ -61,19 +62,30 @@ class FavoriteDetailViewModel(application: Application) : ViewModel() {
         })
     }
 
-    fun addNewFavorites(favorite:Favorite){
+    fun addNewFavorites(){
+        _isLoading.value = true
+        val favorite = mRepository.getFavoriteUserByUsername(_favorite.value!!.username)
         mRepository.insert(favorite)
         _isFavoriteExisted.value = true
+        _isLoading.value = false
     }
 
-    fun deleteFavorites(favorite:Favorite){
+    fun deleteFavorites(){
+        _isLoading.value = true
+        val favorite = mRepository.getFavoriteUserByUsername(_favorite.value!!.username)
         mRepository.delete(favorite)
         _isFavoriteExisted.value = false
+        _isLoading.value = false
     }
 
     fun getIsFavorite(username:String){
         _isFavoriteExisted.value = mRepository.isFavoriteExisted(username)
     }
+
+    fun getFavoriteUserByUsername(username: String) {
+        _favorite.value = mRepository.getFavoriteUserByUsername(username)
+    }
+
     companion object {
         private val TAG = FavoriteDetailFragment::class.java.simpleName
     }

@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.esnanta.usergithubapi.R
-import com.esnanta.usergithubapi.data.room.Favorite
 import com.esnanta.usergithubapi.databinding.ActivityFavoriteDetailBinding
 import com.esnanta.usergithubapi.helper.ViewModelFactory
 import com.esnanta.usergithubapi.model.SectionsPagerAdapter
@@ -55,19 +54,22 @@ class FavoriteDetailActivity : AppCompatActivity() {
     private fun loadViewModel(loginUser : String) {
 
         mFavoriteDetailViewModel.findUser(loginUser)
+        mFavoriteDetailViewModel.getFavoriteUserByUsername(loginUser)
 
         mFavoriteDetailViewModel.userResponse.observe(this) { user ->
-            binding.profileName.text = user.name ?: "-NULL-"
-            binding.profileLogin.text = "(" + user.login + ")"
             binding.profileFollower.text = resources.getString(R.string.followers) + " " + user.followers!!
             binding.profileFollowing.text = resources.getString(R.string.following) + " " + user.following!!
+        }
 
+        mFavoriteDetailViewModel.favorite.observe(this) { user ->
+            val username = mFavoriteDetailViewModel.favorite.value?.username
+            binding.profileName.text = username.toString() ?: "-NULL-"
+            binding.profileLogin.text = "Favorit Database"
             Glide.with(this)
                 .load(user.avatarUrl)
                 .into(binding.profileImage)
-
-            user.login?.let { mFavoriteDetailViewModel.getIsFavorite(it) }
-
+            
+            mFavoriteDetailViewModel.getIsFavorite(user.username)
         }
 
         mFavoriteDetailViewModel.isFavoriteExisted.observe(this) {
@@ -87,24 +89,19 @@ class FavoriteDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateFabButton(isFavorite: Boolean) {
+    private fun updateFabButton( isFavorite: Boolean) {
         val fabFavorites = binding.fabFavorites
-        val favorite = Favorite()
-        favorite.let { favorite ->
-            favorite?.username = mFavoriteDetailViewModel.userResponse.value?.login.toString()
-            favorite?.avatarUrl = mFavoriteDetailViewModel.userResponse.value?.avatarUrl
-        }
 
         if (isFavorite) {
             fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24))
             fabFavorites.setOnClickListener {
-                mFavoriteDetailViewModel.deleteFavorites(favorite)
+                mFavoriteDetailViewModel.deleteFavorites()
             }
         }
         else{
             fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_border_24))
             fabFavorites.setOnClickListener {
-                mFavoriteDetailViewModel.addNewFavorites(favorite)
+                mFavoriteDetailViewModel.addNewFavorites()
             }
         }
     }
