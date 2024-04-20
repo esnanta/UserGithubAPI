@@ -63,19 +63,13 @@ class FavoriteDetailViewModel(application: Application) : ViewModel() {
     }
 
     fun addNewFavorites(){
-        _isLoading.value = true
         val favorite = mRepository.getFavoriteUserByUsername(_favorite.value!!.username)
         mRepository.insert(favorite)
-        _isFavoriteExisted.value = true
-        _isLoading.value = false
     }
 
     fun deleteFavorites(){
-        _isLoading.value = true
         val favorite = mRepository.getFavoriteUserByUsername(_favorite.value!!.username)
         mRepository.delete(favorite)
-        _isFavoriteExisted.value = false
-        _isLoading.value = false
     }
 
     fun getIsFavorite(username:String){
