@@ -75,7 +75,7 @@ class FavoriteFragment : Fragment(), IFavoriteItemClickListener {
         val username = favorite.username
         val fragmentManager = requireActivity().supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val favoriteDetailFragment = FavoriteDetailFragment.newInstance(username)
+        val favoriteDetailFragment = FavoriteDetailFragment.newInstance(username,1)
 
         fragmentTransaction.replace(R.id.fragment_container, favoriteDetailFragment)
         fragmentTransaction.addToBackStack(null)

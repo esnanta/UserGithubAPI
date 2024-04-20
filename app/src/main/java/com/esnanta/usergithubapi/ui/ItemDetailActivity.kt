@@ -24,14 +24,6 @@ class ItemDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityItemDetailBinding
     private lateinit var userViewModel: UserViewModel
 
-    companion object {
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_follower,
-            R.string.tab_following
-        )
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityItemDetailBinding.inflate(layoutInflater)
@@ -44,7 +36,9 @@ class ItemDetailActivity : AppCompatActivity() {
             loadViewModel(loginUser)
         }
 
-        val sectionsPagerAdapter = loginUser?.let { SectionsPagerAdapter(this, it) }
+        val sectionsPagerAdapter = loginUser?.let {
+            SectionsPagerAdapter(this,ProfileFragment::class.java, it)
+        }
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter
 
@@ -124,5 +118,13 @@ class ItemDetailActivity : AppCompatActivity() {
                 userViewModel.addNewFavorites(favorite)
             }
         }
+    }
+
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_follower,
+            R.string.tab_following
+        )
     }
 }
