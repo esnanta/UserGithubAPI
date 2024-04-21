@@ -12,13 +12,17 @@ android {
 
     defaultConfig {
         applicationId = "com.esnanta.usergithubapi"
-        minSdk = 24
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "TOKEN_GITHUB", "\"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\"")
+
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -61,7 +65,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
-    kapt("com.github.bumptech.glide:compiler:4.14.2")
+    ksp("com.github.bumptech.glide:ksp:4.14.2")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -76,4 +80,6 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }
