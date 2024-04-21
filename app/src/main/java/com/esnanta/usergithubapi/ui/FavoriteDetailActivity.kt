@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.esnanta.usergithubapi.R
+import com.esnanta.usergithubapi.data.room.Favorite
 import com.esnanta.usergithubapi.databinding.ActivityFavoriteDetailBinding
 import com.esnanta.usergithubapi.helper.ViewModelFactory
 import com.esnanta.usergithubapi.model.SectionsPagerAdapter
@@ -55,6 +56,7 @@ class FavoriteDetailActivity : AppCompatActivity() {
 
         mFavoriteDetailViewModel.findUser(loginUser)
         mFavoriteDetailViewModel.getFavoriteUserByUsername(loginUser)
+        mFavoriteDetailViewModel.getIsFavorite(loginUser)
 
         mFavoriteDetailViewModel.userResponse.observe(this) { user ->
             binding.profileFollower.text = resources.getString(R.string.followers) + " " + user.followers!!
@@ -68,8 +70,6 @@ class FavoriteDetailActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(user.avatarUrl)
                 .into(binding.profileImage)
-            
-            mFavoriteDetailViewModel.getIsFavorite(user.username)
         }
 
         mFavoriteDetailViewModel.isFavoriteExisted.observe(this) {
@@ -89,22 +89,28 @@ class FavoriteDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateFabButton( isFavorite: Boolean) {
+    private fun updateFabButton(isFavorite: Boolean) {
         val fabFavorites = binding.fabFavorites
+        val favorite = Favorite()
 
         if (isFavorite) {
             fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24))
             fabFavorites.setOnClickListener {
-                mFavoriteDetailViewModel.deleteFavorites()
+                favorite?.username = mFavoriteDetailViewModel.favorite.value?.username.toString()
+                favorite?.avatarUrl = mFavoriteDetailViewModel.favorite.value?.avatarUrl
+                mFavoriteDetailViewModel.deleteFavorites(favorite)
             }
         }
         else{
             fabFavorites.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.baseline_favorite_border_24))
             fabFavorites.setOnClickListener {
-                mFavoriteDetailViewModel.addNewFavorites()
+                favorite?.username = mFavoriteDetailViewModel.userResponse.value?.login.toString()
+                favorite?.avatarUrl = mFavoriteDetailViewModel.userResponse.value?.avatarUrl
+                mFavoriteDetailViewModel.addNewFavorites(favorite)
             }
         }
     }
+
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE

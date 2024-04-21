@@ -62,14 +62,14 @@ class FavoriteDetailViewModel(application: Application) : ViewModel() {
         })
     }
 
-    fun addNewFavorites(){
-        val favorite = mRepository.getFavoriteUserByUsername(_favorite.value!!.username)
+    fun addNewFavorites(favorite:Favorite){
         mRepository.insert(favorite)
+        _isFavoriteExisted.value = true
     }
 
-    fun deleteFavorites(){
-        val favorite = mRepository.getFavoriteUserByUsername(_favorite.value!!.username)
+    fun deleteFavorites(favorite:Favorite){
         mRepository.delete(favorite)
+        _isFavoriteExisted.value = false
     }
 
     fun getIsFavorite(username:String){
