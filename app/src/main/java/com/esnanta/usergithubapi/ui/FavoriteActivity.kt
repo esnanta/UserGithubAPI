@@ -64,10 +64,23 @@ class FavoriteActivity : AppCompatActivity(), IFavoriteItemClickListener {
     }
 
     override fun onFavoriteItemClick(favorite: Favorite) {
+//        val username = favorite.username
+//        var intent = Intent(this, FavoriteDetailActivity::class.java)
+//        intent.putExtra("EXTRA_USERNAME", username)
+//        startActivity(intent)
+
         val username = favorite.username
-        var intent = Intent(this, FavoriteDetailActivity::class.java)
+        val intent = Intent(this, FavoriteDetailActivity::class.java)
         intent.putExtra("EXTRA_USERNAME", username)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_DELETE_FAVORITE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_DELETE_FAVORITE && resultCode == RESULT_OK) {
+            loadViewModel() // Reload the ViewModel to refresh the RecyclerView
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -81,5 +94,9 @@ class FavoriteActivity : AppCompatActivity(), IFavoriteItemClickListener {
     private fun obtainViewModel(activity: AppCompatActivity): FavoriteListViewModel {
         val factory = ViewModelFactory.getInstance(activity.application)
         return ViewModelProvider(activity, factory)[FavoriteListViewModel::class.java]
+    }
+
+    companion object {
+        private const val REQUEST_DELETE_FAVORITE = 1
     }
 }

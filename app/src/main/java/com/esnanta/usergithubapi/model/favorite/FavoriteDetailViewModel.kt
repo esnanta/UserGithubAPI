@@ -70,6 +70,7 @@ class FavoriteDetailViewModel(application: Application) : ViewModel() {
     fun deleteFavorites(favorite:Favorite){
         mRepository.delete(favorite)
         _isFavoriteExisted.value = false
+        _isFavoriteExisted.postValue(false)
     }
 
     fun getIsFavorite(username:String){
