@@ -23,7 +23,7 @@ class FavoriteDetailActivity : AppCompatActivity() {
     private lateinit var mFavoriteDetailViewModel: FavoriteDetailViewModel
     private lateinit var binding : ActivityFavoriteDetailBinding
     private var isDeleted = false
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFavoriteDetailBinding.inflate(layoutInflater)
@@ -101,8 +101,7 @@ class FavoriteDetailActivity : AppCompatActivity() {
                 favorite?.username = mFavoriteDetailViewModel.favorite.value?.username.toString()
                 favorite?.avatarUrl = mFavoriteDetailViewModel.favorite.value?.avatarUrl
                 mFavoriteDetailViewModel.deleteFavorites(favorite)
-                setResult(Activity.RESULT_OK)
-                finish() // Finish the activity to return to FavoriteActivity
+                isDeleted = true
             }
         }
         else{
@@ -113,6 +112,13 @@ class FavoriteDetailActivity : AppCompatActivity() {
                 mFavoriteDetailViewModel.addNewFavorites(favorite)
             }
         }
+    }
+
+    override fun onBackPressed() {
+        if (isDeleted) {
+            setResult(Activity.RESULT_OK)
+        }
+        super.onBackPressed()
     }
 
     private fun showLoading(isLoading: Boolean) {

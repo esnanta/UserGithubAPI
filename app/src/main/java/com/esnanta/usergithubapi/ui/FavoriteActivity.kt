@@ -1,10 +1,10 @@
 package com.esnanta.usergithubapi.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -64,11 +64,6 @@ class FavoriteActivity : AppCompatActivity(), IFavoriteItemClickListener {
     }
 
     override fun onFavoriteItemClick(favorite: Favorite) {
-//        val username = favorite.username
-//        var intent = Intent(this, FavoriteDetailActivity::class.java)
-//        intent.putExtra("EXTRA_USERNAME", username)
-//        startActivity(intent)
-
         val username = favorite.username
         val intent = Intent(this, FavoriteDetailActivity::class.java)
         intent.putExtra("EXTRA_USERNAME", username)
@@ -78,7 +73,7 @@ class FavoriteActivity : AppCompatActivity(), IFavoriteItemClickListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_DELETE_FAVORITE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_DELETE_FAVORITE && resultCode == Activity.RESULT_OK) {
             loadViewModel() // Reload the ViewModel to refresh the RecyclerView
         }
     }
