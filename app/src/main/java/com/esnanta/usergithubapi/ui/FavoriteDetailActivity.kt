@@ -65,12 +65,11 @@ class FavoriteDetailActivity : AppCompatActivity() {
             binding.profileFollowing.text = resources.getString(R.string.following) + " " + user.following!!
         }
 
-        mFavoriteDetailViewModel.favorite.observe(this) { user ->
-            val username = mFavoriteDetailViewModel.favorite.value?.username
-            binding.profileName.text = username.toString() ?: "-NULL-"
+        mFavoriteDetailViewModel.favorite.observe(this) { favorite ->
+            binding.dataDb = favorite
             binding.profileLogin.text = "Favorit Database"
             Glide.with(this)
-                .load(user.avatarUrl)
+                .load(favorite?.avatarUrl)
                 .into(binding.profileImage)
         }
 
