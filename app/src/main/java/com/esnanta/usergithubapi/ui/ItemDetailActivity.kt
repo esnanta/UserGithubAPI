@@ -1,7 +1,9 @@
 package com.esnanta.usergithubapi.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -51,8 +53,17 @@ class ItemDetailActivity : AppCompatActivity() {
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
+
+        if (isDarkModeOn()) {
+            tabs.tabTextColors = ContextCompat.getColorStateList(this, R.color.white)
+        }
+
         supportActionBar?.elevation = 0f
 
+    }
+    private fun isDarkModeOn(): Boolean {
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        return currentNightMode == Configuration.UI_MODE_NIGHT_YES
     }
 
     private fun loadViewModel(loginUser : String) {
