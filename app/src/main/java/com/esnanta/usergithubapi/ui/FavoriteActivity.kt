@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -33,9 +34,9 @@ class FavoriteActivity : AppCompatActivity(), IFavoriteItemClickListener {
         loadViewModel()
     }
 
-    override fun onResume() {
-        super.onResume()
-        favoriteListViewModel.getAllFavorites()
+    override fun onStart() {
+        super.onStart()
+        loadViewModel()
     }
 
     private fun loadViewModel(){
