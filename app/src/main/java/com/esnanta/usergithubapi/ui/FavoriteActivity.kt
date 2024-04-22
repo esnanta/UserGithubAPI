@@ -45,6 +45,8 @@ class FavoriteActivity : AppCompatActivity(), IFavoriteItemClickListener {
 
         favoriteListViewModel.listFavorite?.observe(this) { dataList ->
             if (dataList.isEmpty()) {
+                adapter = FavoriteAdapter(favoriteListViewModel)
+                binding.recyclerView.adapter = adapter
                 val toast = Toast.makeText(this, "Database is empty", Toast.LENGTH_SHORT)
                 toast.show()
             }
@@ -74,7 +76,7 @@ class FavoriteActivity : AppCompatActivity(), IFavoriteItemClickListener {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_DELETE_FAVORITE && resultCode == Activity.RESULT_OK) {
-            loadViewModel() // Reload the ViewModel to refresh the RecyclerView
+            loadViewModel()
         }
     }
 
