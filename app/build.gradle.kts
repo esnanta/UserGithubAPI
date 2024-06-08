@@ -19,6 +19,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "TOKEN_GITHUB", "\"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\"")
+        buildConfigField("String", "BASE_URL_RETROFIT", "\"https://api.github.com/\"")
 
         vectorDrawables {
             useSupportLibrary = true

@@ -1,5 +1,6 @@
 package com.esnanta.usergithubapi.data.retrofit
 
+import com.esnanta.usergithubapi.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -21,7 +22,7 @@ class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
+                .baseUrl("${BuildConfig.BASE_URL_RETROFIT}")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
