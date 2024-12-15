@@ -26,7 +26,7 @@ Follow these steps to set up the project:
 
 1. Clone this repository to your local machine:
    ```bash
-   git clone https://github.com/your-username/your-repository.git
+   git clone https://github.com/esnanta/UserGithubAPI.git
    ```
 2. Open the project in Android Studio:
    - Select **File > Open...** and navigate to the cloned repository.
