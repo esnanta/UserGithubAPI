@@ -26,18 +26,10 @@ Before running this project, ensure you have the following:
 
 ## Setting Up the Project
 
-1. Clone this repository to your local machine:
+Clone this repository to your local machine:
    ```bash
-   git clone https://github.com/your-username/your-repository.git
+   git clone https://github.com/esnanta/UserGithubAPI.git
    ```
-2. Open the project in Android Studio:
-   - Select **File > Open...** and navigate to the cloned repository.
-3. Verify the required dependencies are installed by syncing the project with Gradle files.
-
-## Running the Application
-
-1. Connect an Android device or start an emulator.
-2. In Android Studio, click the **Run** button or choose the appropriate configuration.
 
 ## Project Structure
 
@@ -45,11 +37,11 @@ Before running this project, ensure you have the following:
 ├── app
 │   ├── src
 │   │   ├── main
-│   │   │   ├── java/com/example/app  # Application source code
-│   │   │   ├── res                   # Layouts, drawables, and other resources
-│   │   ├── test                      # Unit tests
-│   │   ├── androidTest               # Instrumentation tests
-├── build.gradle                      # Project build configuration
+│   │   │   ├── java/com/esnanta/storyapp   # Application source code
+│   │   │   ├── res                         # Layouts, drawables, and other resources
+│   │   ├── test                            # Unit tests
+│   │   ├── androidTest                     # Instrumentation tests
+├── build.gradle                            # Project build configuration
 ```
 
 ## Key Technologies
