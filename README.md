@@ -36,10 +36,10 @@ Clone this repository to your local machine:
 │   ├── src
 │   │   ├── main
 │   │   │   ├── java/com/esnanta/UserGithubAPI  # Application source code
-│   │   │   ├── res                   # Resources (layouts, drawables, strings, etc.)
-│   │   ├── test                      # Unit tests
-│   │   ├── androidTest               # Instrumented tests
-├── build.gradle                      # Project build configuration
+│   │   │   ├── res                             # Resources (layouts, drawables, strings, etc.)
+│   │   ├── test                                # Unit tests
+│   │   ├── androidTest                         # Instrumented tests
+├── build.gradle                                # Project build configuration
 ```
 
 ## Explanation of Key Technologies
