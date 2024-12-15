@@ -1,89 +1,62 @@
-# Submission Fundamental Android Training - Dicoding
+Submission Fundamental Android Training - Dicoding
+Introduction
 
-## Introduction
+This repository contains the source code for an Android application developed as part of the Dicoding Fundamental Android training program. 
+The project integrates various core Android functionalities to provide a comprehensive learning experience.
 
-This repository contains the source code for an Android application developed as part of the Dicoding **Fundamental Android Training** program. The project demonstrates the implementation of essential Android development concepts, providing a solid foundation for building more advanced applications.
+Key Features
 
-## Key Features
+    Search Functionality: Implements SearchView to enable users to search for data within the application.
+    Tab Navigation: Leverages TabLayout for seamless navigation between different pages of the application, managed by ViewPager2.
+    Network Requests (JSON): Utilizes both LoopJ and Retrofit libraries to perform network requests and handle JSON responses effectively.
+    CRUD Database Management: Integrates SQLite and Room to implement Create, Read, Update, and Delete (CRUD) operations for application data persistence.
+    Data Storage (Key-Value): Employs DataStore to store user preferences and settings with a key-value pair approach for data persistence and retrieval.
 
-- **Map Integration**: Displays a list of stories on a map correctly.
-- **Paging 3 Integration**: Implements a list of stories using Paging 3 to ensure efficient data loading and smooth scrolling.
-- **Unit Testing**: Includes unit tests to verify the application's core functionalities and maintain code reliability.
-- **Robust Application**: Ensures the application runs without force-closing.
-- **Search Functionality**: Utilizes `SearchView` to enable users to search for specific data within the application.
-- **Tab Navigation**: Uses `TabLayout` and `ViewPager2` for smooth navigation between different application pages.
-- **Network Requests**: Integrates LoopJ and Retrofit libraries for seamless API interactions and JSON response handling.
-- **CRUD Database Management**: Leverages SQLite and Room libraries to perform Create, Read, Update, and Delete operations for data persistence.
-- **Key-Value Data Storage**: Employs DataStore for storing and retrieving user preferences and settings.
+Prerequisites
 
-## Prerequisites
+    Basic understanding of Android development concepts (activities, fragments, layouts, etc.)
+    Familiarity with Java or Kotlin programming languages
 
-Before running this project, ensure you have the following:
+Setting Up the Project
 
-- Basic understanding of Android development concepts, including Activities, Fragments, and Layouts.
-- Familiarity with Java or Kotlin programming languages.
-- Android Studio installed with necessary development tools and libraries.
+    Clone this repository to your local machine using Git.
+    Open the project in Android Studio using the "Open an existing Android Studio project" option.
+    Ensure you have the necessary development tools and libraries installed in your Android Studio environment.
 
-## Setting Up the Project
+Running the Application
 
-Clone this repository to your local machine:
-   ```bash
-   git clone https://github.com/esnanta/UserGithubAPI.git
-   ```
+    Connect a device or emulator to your development machine.
+    Click the "Run" button in Android Studio or choose the appropriate configuration and run mode.
 
-## Project Structure
+Project Structure
 
-```plaintext
-├── app
-│   ├── src
-│   │   ├── main
-│   │   │   ├── java/com/esnanta/storyapp   # Application source code
-│   │   │   ├── res                         # Layouts, drawables, and other resources
-│   │   ├── test                            # Unit tests
-│   │   ├── androidTest                     # Instrumentation tests
-├── build.gradle                            # Project build configuration
-```
+(Provide a detailed explanation of your project's directory structure, outlining the organization of code files and resources)
 
-## Key Technologies
+Explanation of Key Technologies
 
-### Map Integration
-Displays stories on a map using the Google Maps API. Each story is pinned at its corresponding location, providing users with a clear visual representation of story data.
+    SearchView: Explain how users can interact with the SearchView to initiate data searches and present search results within the application.
+    TabLayout & ViewPager2: Describe how these components are used to create a tabbed navigation experience, where users can switch between different pages using tabs.
+    LoopJ & Retrofit: Provide a brief comparison of these libraries for network requests, highlighting their strengths and use cases in your application. Explain how JSON responses are parsed and handled.
+    SQLite & Room: Discuss the role of SQLite in data storage and how Room simplifies interactions with the database. Describe the implemented CRUD operations.
+    DataStore: Explain the purpose of DataStore for storing and retrieving user preferences. Detail how key-value storage is utilized in your application.
 
-### Paging 3
-Efficiently loads and paginates a large dataset of stories, ensuring a smooth scrolling experience and reduced memory usage.
+Further Exploration and Customization
 
-### Unit Testing
-Verifies the functionality of key components, ensuring the application meets its requirements. The tests improve the overall code reliability and help prevent regressions.
+    Feel free to explore the codebase and modify it to extend functionalities or tailor it to your specific needs.
+    Refer to the documentation of the utilized libraries (https://loopj.com/, https://github.com/square/retrofit) 
+	for in-depth information and advanced usage patterns.
 
-### SearchView
-Enables users to perform data searches directly within the application. The search results are dynamically updated to reflect the query.
+Contribution Guidelines
 
-### TabLayout & ViewPager2
-Implements a tab-based navigation system, allowing users to switch seamlessly between pages.
+(If applicable, outline preferred methods for code contributions and code review procedures)
 
-### LoopJ & Retrofit
-Handles network requests to fetch and parse JSON responses from APIs. LoopJ is used for asynchronous tasks, while Retrofit simplifies API interactions.
+License
 
-### SQLite & Room
-Manages persistent storage using SQLite. The Room library abstracts database interactions, providing a robust implementation for CRUD operations.
+(Specify the license under which your code is distributed, e.g., Apache License 2.0, MIT License)
 
-### DataStore
-Stores user preferences and application settings in a key-value format, ensuring data persistence and quick retrieval.
+Conclusion
 
-## Further Exploration and Customization
-
-Feel free to:
-
-- Explore the codebase to understand the implementation details.
-- Modify the project to extend functionality or adapt it to your needs.
-- Refer to the documentation of the libraries used:
-  - [LoopJ](https://loopj.com/)
-  - [Retrofit](https://square.github.io/retrofit/)
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-## Conclusion
-
-This project demonstrates the integration of essential Android development concepts, including map-based features, Paging 3, and robust data management practices. By implementing best practices and incorporating unit tests, it serves as a strong foundation for building reliable and scalable Android applications. Explore, learn, and enjoy!
+This project serves as a valuable learning resource for beginners or those wanting to refresh their knowledge of key Android development concepts. 
+By combining SearchView, TabLayout with ViewPager2, network requests (using LoopJ or Retrofit), database management (with SQLite and Room), 
+and data storage (through DataStore), the application provides a practical foundation for building more complex Android applications. 
+Feel free to explore, customize, and contribute to this project!
