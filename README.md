@@ -35,7 +35,7 @@ Clone this repository to your local machine:
 ├── app
 │   ├── src
 │   │   ├── main
-│   │   │   ├── java/com/example/app  # Application source code
+│   │   │   ├── java/com/esnanta/UserGithubAPI  # Application source code
 │   │   │   ├── res                   # Resources (layouts, drawables, strings, etc.)
 │   │   ├── test                      # Unit tests
 │   │   ├── androidTest               # Instrumented tests
