@@ -24,18 +24,10 @@ Before starting, ensure you have the following:
 
 Follow these steps to set up the project:
 
-1. Clone this repository to your local machine:
+Clone this repository to your local machine:
    ```bash
    git clone https://github.com/esnanta/UserGithubAPI.git
    ```
-2. Open the project in Android Studio:
-   - Select **File > Open...** and navigate to the cloned repository.
-3. Sync the Gradle files to download required dependencies.
-
-## Running the Application
-
-1. Connect an Android device or start an emulator.
-2. In Android Studio, click the **Run** button or select the appropriate configuration to run the app.
 
 ## Project Structure
 
