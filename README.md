@@ -1,62 +1,98 @@
-Submission Fundamental Android Training - Dicoding
-Introduction
+# Submission: Fundamental Android Training - Dicoding
 
-This repository contains the source code for an Android application developed as part of the Dicoding Fundamental Android training program. 
-The project integrates various core Android functionalities to provide a comprehensive learning experience.
+## Introduction
 
-Key Features
+This repository contains the source code for an Android application developed as part of the **Dicoding Fundamental Android Training** program. The project showcases the integration of core Android functionalities, offering a comprehensive learning experience for developers.
 
-    Search Functionality: Implements SearchView to enable users to search for data within the application.
-    Tab Navigation: Leverages TabLayout for seamless navigation between different pages of the application, managed by ViewPager2.
-    Network Requests (JSON): Utilizes both LoopJ and Retrofit libraries to perform network requests and handle JSON responses effectively.
-    CRUD Database Management: Integrates SQLite and Room to implement Create, Read, Update, and Delete (CRUD) operations for application data persistence.
-    Data Storage (Key-Value): Employs DataStore to store user preferences and settings with a key-value pair approach for data persistence and retrieval.
+## Key Features
 
-Prerequisites
+- **Search Functionality**: Implements `SearchView` to allow users to search for data within the application.
+- **Tab Navigation**: Leverages `TabLayout` and `ViewPager2` for seamless navigation between different application pages.
+- **Network Requests (JSON)**: Utilizes LoopJ and Retrofit libraries to perform network requests and handle JSON responses efficiently.
+- **CRUD Database Management**: Integrates SQLite and Room to perform Create, Read, Update, and Delete (CRUD) operations for persistent data management.
+- **Data Storage (Key-Value)**: Employs DataStore to store and retrieve user preferences and settings using a key-value pair approach.
 
-    Basic understanding of Android development concepts (activities, fragments, layouts, etc.)
-    Familiarity with Java or Kotlin programming languages
+## Prerequisites
 
-Setting Up the Project
+Before starting, ensure you have the following:
 
-    Clone this repository to your local machine using Git.
-    Open the project in Android Studio using the "Open an existing Android Studio project" option.
-    Ensure you have the necessary development tools and libraries installed in your Android Studio environment.
+- A basic understanding of Android development concepts (Activities, Fragments, Layouts, etc.).
+- Familiarity with Java or Kotlin programming languages.
+- Android Studio installed with the necessary tools and libraries.
 
-Running the Application
+## Setting Up the Project
 
-    Connect a device or emulator to your development machine.
-    Click the "Run" button in Android Studio or choose the appropriate configuration and run mode.
+Follow these steps to set up the project:
 
-Project Structure
+1. Clone this repository to your local machine:
+   ```bash
+   git clone https://github.com/your-username/your-repository.git
+   ```
+2. Open the project in Android Studio:
+   - Select **File > Open...** and navigate to the cloned repository.
+3. Sync the Gradle files to download required dependencies.
 
-(Provide a detailed explanation of your project's directory structure, outlining the organization of code files and resources)
+## Running the Application
 
-Explanation of Key Technologies
+1. Connect an Android device or start an emulator.
+2. In Android Studio, click the **Run** button or select the appropriate configuration to run the app.
 
-    SearchView: Explain how users can interact with the SearchView to initiate data searches and present search results within the application.
-    TabLayout & ViewPager2: Describe how these components are used to create a tabbed navigation experience, where users can switch between different pages using tabs.
-    LoopJ & Retrofit: Provide a brief comparison of these libraries for network requests, highlighting their strengths and use cases in your application. Explain how JSON responses are parsed and handled.
-    SQLite & Room: Discuss the role of SQLite in data storage and how Room simplifies interactions with the database. Describe the implemented CRUD operations.
-    DataStore: Explain the purpose of DataStore for storing and retrieving user preferences. Detail how key-value storage is utilized in your application.
+## Project Structure
 
-Further Exploration and Customization
+```plaintext
+├── app
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java/com/example/app  # Application source code
+│   │   │   ├── res                   # Resources (layouts, drawables, strings, etc.)
+│   │   ├── test                      # Unit tests
+│   │   ├── androidTest               # Instrumented tests
+├── build.gradle                      # Project build configuration
+```
 
-    Feel free to explore the codebase and modify it to extend functionalities or tailor it to your specific needs.
-    Refer to the documentation of the utilized libraries (https://loopj.com/, https://github.com/square/retrofit) 
-	for in-depth information and advanced usage patterns.
+## Explanation of Key Technologies
 
-Contribution Guidelines
+### SearchView
+Allows users to interact with a search bar to query specific data. Results are dynamically updated based on the search term.
 
-(If applicable, outline preferred methods for code contributions and code review procedures)
+### TabLayout & ViewPager2
+Provides a tabbed navigation system that enables users to switch between different application pages with ease.
 
-License
+### LoopJ & Retrofit
+Manages network requests and JSON parsing:
+- **LoopJ**: Ideal for asynchronous network operations.
+- **Retrofit**: Simplifies API calls and response handling, making it a robust solution for RESTful services.
 
-(Specify the license under which your code is distributed, e.g., Apache License 2.0, MIT License)
+### SQLite & Room
+Facilitates persistent storage using:
+- **SQLite**: A lightweight database for structured data storage.
+- **Room**: An abstraction layer over SQLite, simplifying database access and reducing boilerplate code.
 
-Conclusion
+### DataStore
+Used for storing and retrieving key-value data, ensuring efficient management of user preferences and application settings.
 
-This project serves as a valuable learning resource for beginners or those wanting to refresh their knowledge of key Android development concepts. 
-By combining SearchView, TabLayout with ViewPager2, network requests (using LoopJ or Retrofit), database management (with SQLite and Room), 
-and data storage (through DataStore), the application provides a practical foundation for building more complex Android applications. 
-Feel free to explore, customize, and contribute to this project!
+## Further Exploration and Customization
+
+Feel free to:
+
+- Explore the codebase to understand the implementation details.
+- Modify the project to extend functionalities or adapt it to your needs.
+- Refer to the documentation of the libraries used:
+  - [LoopJ](https://loopj.com/)
+  - [Retrofit](https://square.github.io/retrofit/)
+
+## Contribution Guidelines
+
+Contributions are welcome! To contribute:
+
+1. Fork this repository.
+2. Create a new branch for your feature or bug fix.
+3. Submit a pull request with a detailed explanation of your changes.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Conclusion
+
+This project provides a practical foundation for learning Android development concepts such as `SearchView`, `TabLayout` with `ViewPager2`, network requests (using LoopJ and Retrofit), database management (with SQLite and Room), and data storage (through DataStore). It serves as an excellent starting point for building more complex Android applications. Feel free to explore, customize, and contribute to this repository!
